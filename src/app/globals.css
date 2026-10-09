@@ -2017,3 +2017,171 @@ a:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Bazar Dor image asset integration */
+.brand-icon {
+  object-fit: contain;
+  padding: 4px;
+}
+
+.hero-market-art {
+  position: relative;
+  overflow: visible;
+}
+
+.hero-market-art .hero-image {
+  object-fit: contain;
+  filter: drop-shadow(0 18px 24px rgb(32 77 43 / 12%));
+}
+
+
+/* Bazar Dor shared header and typography refinement */
+:root {
+  --bd-green: #16a34a;
+  --bd-green-dark: #15803d;
+  --bd-green-soft: #dcfce7;
+  --bd-green-pale: #f0fdf4;
+  --bd-red: #dc2626;
+  --bd-ink: #1e293b;
+  --bd-muted: #64748b;
+  --bd-border: #e2e8f0;
+  --bd-surface: #ffffff;
+  --bd-background: #f8fafc;
+}
+
+html {
+  font-family: var(--font-hind-siliguri), var(--font-inter), sans-serif;
+}
+
+body {
+  font-family: var(--font-hind-siliguri), var(--font-inter), sans-serif;
+}
+
+.site-container {
+  width: min(1280px, calc(100% - 48px));
+}
+
+.brand-icon {
+  display: block;
+  flex-shrink: 0;
+  padding: 4px;
+  object-fit: contain;
+}
+
+.header-actions {
+  gap: 8px;
+}
+
+.location-pill {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding-inline: 10px;
+  border: 1px solid var(--bd-border);
+  border-radius: 9px;
+  background: #fff;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.register-link {
+  display: inline-flex;
+  min-height: 39px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding-inline: 12px;
+  border: 1px solid var(--bd-green);
+  border-radius: 9px;
+  background: var(--bd-green);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.register-link:hover {
+  transform: translateY(-1px);
+  background: var(--bd-green-dark);
+}
+
+@media (max-width: 1024px) {
+  .header-main {
+    gap: 14px;
+  }
+
+  .main-nav {
+    gap: 13px;
+  }
+
+  .location-pill {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .site-container {
+    width: calc(100% - 32px);
+  }
+
+  .header-main {
+    gap: 9px;
+  }
+
+  .brand {
+    gap: 7px;
+  }
+
+  .brand-icon {
+    width: 37px;
+    height: 37px;
+  }
+
+  .brand-name {
+    font-size: 20px;
+  }
+
+  .brand-tagline {
+    font-size: 9px;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .signin-link,
+  .register-link {
+    min-height: 34px;
+    padding-inline: 9px;
+    font-size: 10px;
+  }
+
+  .register-link svg {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .site-container {
+    width: calc(100% - 24px);
+  }
+
+  .brand-tagline {
+    display: none;
+  }
+
+  .brand-name {
+    font-size: 18px;
+  }
+
+  .signin-link,
+  .register-link {
+    padding-inline: 7px;
+  }
+}

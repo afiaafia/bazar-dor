@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Hind_Siliguri, Inter } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const bengaliFont = Hind_Siliguri({
+  subsets: ["bengali", "latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-hind-siliguri",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const latinFont = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const monoFont = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
 });
 
 export const metadata: Metadata = {
@@ -37,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="bn"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${bengaliFont.variable} ${latinFont.variable} ${monoFont.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

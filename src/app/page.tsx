@@ -1,6 +1,7 @@
 export const instant = false;
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -151,26 +152,14 @@ export default async function Home() {
               </div>
 
               <div className="hero-market-art">
-                <div className="market-art-circle circle-back" />
-                <div className="market-art-circle circle-front" />
-                <span className="market-emoji emoji-rice" aria-hidden="true">
-                  🍚
-                </span>
-                <span className="market-emoji emoji-fish" aria-hidden="true">
-                  🐟
-                </span>
-                <span className="market-emoji emoji-vegetable" aria-hidden="true">
-                  🥬
-                </span>
-                <span className="market-emoji emoji-tomato" aria-hidden="true">
-                  🍅
-                </span>
-                <span className="market-emoji emoji-egg" aria-hidden="true">
-                  🥚
-                </span>
-                <div className="market-art-basket" aria-hidden="true">
-                  <span>🧺</span>
-                </div>
+                <Image
+                  src="/images/bazar-hero.png"
+                  alt="নিত্যপ্রয়োজনীয় বাজারের পণ্য"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 90vw, 400px"
+                  className="hero-image"
+                />
               </div>
 
               <div className="hero-floating-card floating-card-top">
@@ -233,7 +222,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="content-section category-section">
+        <section className="content-section category-section" id="ক্যাটাগরি">
           <div className="site-container">
             <SectionHeading
               eyebrow="ক্যাটাগরি"
@@ -448,9 +437,14 @@ export default async function Home() {
       <footer className="site-footer">
         <div className="site-container footer-main">
           <Link href="/" className="brand footer-brand">
-            <span className="brand-icon" aria-hidden="true">
-              🛒
-            </span>
+            <Image
+            src="/images/logo-icon.png"
+            alt=""
+            width={43}
+            height={43}
+            className="brand-icon"
+            aria-hidden="true"
+          />
             <span className="brand-copy">
               <span className="brand-name">বাজার দর</span>
               <span className="brand-tagline">দাম জানুন, সাশ্রয় করুন</span>

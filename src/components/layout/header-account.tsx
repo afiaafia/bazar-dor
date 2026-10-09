@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChevronDown, LogOut, UserRound } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
@@ -63,7 +64,7 @@ export function HeaderAccount() {
         <span className="header-account-avatar">
           {image ? (
             // Provider profile image; initials remain available if loading fails.
-            <img
+            <Image width={40} height={40} unoptimized
               src={image}
               alt=""
               referrerPolicy="no-referrer"
@@ -90,7 +91,7 @@ export function HeaderAccount() {
             <div className="header-account-identity">
               <span className="header-account-avatar header-account-avatar-large">
                 {image ? (
-                  <img src={image} alt="" referrerPolicy="no-referrer"
+                  <Image width={40} height={40} unoptimized src={image} alt="" referrerPolicy="no-referrer"
                     onError={(event) => {
                       event.currentTarget.style.display = "none";
                     }}

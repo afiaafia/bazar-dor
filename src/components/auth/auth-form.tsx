@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 
@@ -18,6 +19,7 @@ export function AuthForm({
   mode,
   socialProviders,
 }: AuthFormProps) {
+  const router = useRouter();
   const isSignup = mode === "signup";
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
@@ -57,7 +59,7 @@ export function AuthForm({
         return;
       }
 
-      window.location.assign("/profile");
+      router.push("/profile");
     } catch {
       setMessage(
         "সার্ভারের সঙ্গে সংযোগ করা যায়নি। MongoDB ও development server পরীক্ষা করুন।",

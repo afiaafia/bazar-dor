@@ -74,7 +74,7 @@ export function ProfileActions({
         return;
       }
 
-      window.location.assign("/signin");
+      router.replace("/signin");
     } catch {
       setMessageType("error");
       setMessage("সাইন আউট করা যায়নি। আবার চেষ্টা করুন।");

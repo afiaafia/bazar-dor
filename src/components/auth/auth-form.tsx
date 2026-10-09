@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Eye, EyeOff, LockKeyhole, Mail, UserRound } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
 
 type AuthFormProps = {
   mode: "signin" | "signup";
@@ -11,13 +12,46 @@ type AuthFormProps = {
 export function AuthForm({ mode }: AuthFormProps) {
   const isSignup = mode === "signup";
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMessage(
-      "ফর্মের ইনপুট যাচাই করা হয়েছে। অ্যাকাউন্ট চালু করতে এখনো authentication service সংযুক্ত করতে হবে।",
-    );
+    setMessage("");
+
+    const form = new FormData(event.currentTarget);
+    const email = String(form.get("email") ?? "").trim();
+    const password = String(form.get("password") ?? "");
+    const name = String(form.get("name") ?? "").trim();
+    const confirmation = String(form.get("confirmPassword") ?? "");
+
+    if (isSignup && password !== confirmation) {
+      setMessage("দুটি পাসওয়ার্ড মিলছে না। আবার পরীক্ষা করুন।");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const result = isSignup
+        ? await authClient.signUp.email({ name, email, password })
+        : await authClient.signIn.email({ email, password });
+
+      if (result.error) {
+        setMessage(
+          result.error.message ?? "অনুরোধটি সম্পন্ন করা যায়নি। আবার চেষ্টা করুন।",
+        );
+        return;
+      }
+
+      window.location.assign("/profile");
+    } catch {
+      setMessage(
+        "সার্ভারের সঙ্গে সংযোগ করা যায়নি। MongoDB সংযোগ এবং development server পরীক্ষা করুন।",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -76,12 +110,11 @@ export function AuthForm({ mode }: AuthFormProps) {
             <LockKeyhole size={17} aria-hidden="true" />
             <input
               name="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder={isSignup ? "কমপক্ষে ৮ অক্ষর" : "আপনার পাসওয়ার্ড"}
               autoComplete={isSignup ? "new-password" : "current-password"}
               minLength={isSignup ? 8 : 1}
               required
-              style={showPassword ? { WebkitTextSecurity: "none" } as React.CSSProperties : undefined}
             />
             <button
               type="button"
@@ -118,12 +151,16 @@ export function AuthForm({ mode }: AuthFormProps) {
           </label>
         )}
 
-        <button className="auth-submit" type="submit">
-          {isSignup ? "অ্যাকাউন্ট তৈরি করুন" : "সাইন ইন করুন"}
+        <button className="auth-submit" type="submit" disabled={isSubmitting}>
+          {isSubmitting
+            ? "অপেক্ষা করুন..."
+            : isSignup
+              ? "অ্যাকাউন্ট তৈরি করুন"
+              : "সাইন ইন করুন"}
         </button>
 
         {message && (
-          <p className="auth-notice" role="status">
+          <p className="auth-notice" role="alert">
             {message}
           </p>
         )}

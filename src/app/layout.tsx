@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Hind_Siliguri, Inter } from "next/font/google";
 import "./globals.css";
+import ToastProvider from "@/components/layout/toast-provider";
+
 
 const bengaliFont = Hind_Siliguri({
   subsets: ["bengali", "latin"],
@@ -47,7 +49,10 @@ export default function RootLayout({
       lang="bn"
       className={`${bengaliFont.variable} ${latinFont.variable} ${monoFont.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ToastProvider />
+        {children}
+      </body>
     </html>
   );
 }

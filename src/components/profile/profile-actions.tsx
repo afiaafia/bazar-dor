@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { LogOut, Save, UserRound } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 type ProfileActionsProps = {
   initialName: string;
@@ -51,6 +52,7 @@ export function ProfileActions({
       setName(cleanName);
       setMessageType("success");
       setMessage("আপনার নাম সফলভাবে আপডেট হয়েছে।");
+      toast.success("Profile updated successfully.");
       router.refresh();
     } catch {
       setMessageType("error");
@@ -74,6 +76,7 @@ export function ProfileActions({
         return;
       }
 
+      toast.success("Signed out successfully.");
       router.replace("/signin");
     } catch {
       setMessageType("error");

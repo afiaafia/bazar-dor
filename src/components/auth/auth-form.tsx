@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 type ProviderAvailability = {
   google: boolean;
@@ -52,14 +53,21 @@ export function AuthForm({
         : await authClient.signIn.email({ email, password });
 
       if (result.error) {
-        setMessage(
+        const errorMessage =
           result.error.message ??
-            "অনুরোধটি সম্পন্ন করা যায়নি। আবার চেষ্টা করুন.",
-        );
+          "অনুরোধটি সম্পন্ন করা যায়নি। আবার চেষ্টা করুন.";
+        setMessage(errorMessage);
+        toast.error(errorMessage);
         return;
       }
 
-      router.push("/profile");
+      if (isSignup) {
+        toast.success("Account created. Please sign in.");
+        router.push("/signin");
+      } else {
+        toast.success("Signed in successfully.");
+        router.push("/");
+      }
     } catch {
       setMessage(
         "সার্ভারের সঙ্গে সংযোগ করা যায়নি। MongoDB ও development server পরীক্ষা করুন।",
@@ -89,14 +97,15 @@ export function AuthForm({
     try {
       const result = await authClient.signIn.social({
         provider,
-        callbackURL: "/profile",
+        callbackURL: "/",
       });
 
       if (result.error) {
-        setMessage(
+        const errorMessage =
           result.error.message ??
-            "সোশ্যাল সাইন ইন সম্পন্ন হয়নি। আবার চেষ্টা করুন।",
-        );
+          "সোশ্যাল সাইন ইন সম্পন্ন হয়নি। আবার চেষ্টা করুন।";
+        setMessage(errorMessage);
+        toast.error(errorMessage);
       }
     } catch {
       setMessage("সোশ্যাল সাইন ইন করা যায়নি। আবার চেষ্টা করুন।");

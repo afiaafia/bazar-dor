@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronDown, LogOut, UserRound } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 type HeaderAuthActionsProps = {
   user: {
@@ -54,15 +55,18 @@ export function HeaderAuthActions({ user }: HeaderAuthActionsProps) {
 
       if (result.error) {
         console.error("Sign out failed:", result.error);
+        toast.error("Sign out failed. Please try again.");
         setSigningOut(false);
         return;
       }
 
       setOpen(false);
+      toast.success("Signed out successfully.");
       router.replace("/");
       router.refresh();
     } catch (error) {
       console.error("Sign out failed:", error);
+      toast.error("Sign out failed. Please try again.");
       setSigningOut(false);
     }
   }

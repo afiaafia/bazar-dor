@@ -45,7 +45,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
   });
 
   if (!session) {
-    redirect("/signin");
+    redirect("/signin?reason=auth-required");
   }
 
   const { id } = await params;

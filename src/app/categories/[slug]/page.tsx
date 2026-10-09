@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, PackageSearch } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
-import { ProductCard } from "@/components/products/product-card";
+import { CategoryProductList } from "@/components/products/category-product-list";
 import { CATEGORY_ITEMS, getCategoryVisual } from "@/constants/categories";
 import { getCategories, getProducts, getProductsByCategory } from "@/lib/api";
 import type { Category, Product } from "@/types/product";
@@ -97,16 +97,12 @@ export default async function CategoryDetailPage({ params }: PageProps) {
                 <PackageSearch size={30} />
                 <h3>এই ক্যাটাগরিতে পণ্য পাওয়া যায়নি</h3>
                 <p>অন্য ক্যাটাগরি দেখুন অথবা পরে আবার চেষ্টা করুন।</p>
-                <Link href="/categories" className="catalog-action-link">
-                  সব ক্যাটাগরি দেখুন
+                <Link href="/" className="catalog-action-link">
+                  হোম পেজে ফিরে যান
                 </Link>
               </div>
             ) : (
-              <div className="product-grid">
-                {filteredProducts.map((product, index) => (
-                  <ProductCard key={product.id} product={product} rank={index + 1} />
-                ))}
-              </div>
+              <CategoryProductList products={filteredProducts} />
             )}
           </section>
         </div>

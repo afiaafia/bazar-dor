@@ -2,16 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { CATEGORY_ITEMS } from "@/constants/categories";
+import { SiteDate } from "@/components/layout/site-date";
 
 export function SiteHeader() {
-  const today = new Intl.DateTimeFormat("bn-BD", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "Asia/Dhaka",
-  }).format(new Date());
-
   return (
     <header className="site-header">
       <div className="top-strip">
@@ -20,7 +13,7 @@ export function SiteHeader() {
             <MapPin size={14} aria-hidden="true" />
             বাংলাদেশের বাজারদর, এক জায়গায়
           </p>
-          <p>{today}</p>
+          <SiteDate />
         </div>
       </div>
 

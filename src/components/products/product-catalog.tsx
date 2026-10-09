@@ -30,29 +30,39 @@ export function ProductCatalog({
     const query = search.trim().toLocaleLowerCase();
 
     const result = products.filter((product) => {
-      const matchesSearch =
-        !query ||
-        product.nameBn.toLocaleLowerCase().includes(query) ||
-        product.categoryNameBn.toLocaleLowerCase().includes(query);
+      const searchableText = [
+        product.nameBn,
+        product.categoryNameBn,
+        product.category,
+        product.slug,
+        String(product.id),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLocaleLowerCase();
 
+      const matchesSearch = !query || searchableText.includes(query);
       const matchesCategory =
         category === "all" || product.category === category;
 
       return matchesSearch && matchesCategory;
     });
 
+    // Sort a copy so the source array is never mutated.
+    const sortedResult = [...result];
+
     switch (sort) {
       case "price-asc":
-        result.sort((a, b) => a.today - b.today);
+        sortedResult.sort((a, b) => a.today - b.today);
         break;
       case "price-desc":
-        result.sort((a, b) => b.today - a.today);
+        sortedResult.sort((a, b) => b.today - a.today);
         break;
       case "name":
-        result.sort((a, b) => a.nameBn.localeCompare(b.nameBn, "bn"));
+        sortedResult.sort((a, b) => a.nameBn.localeCompare(b.nameBn, "bn"));
         break;
       case "change":
-        result.sort(
+        sortedResult.sort(
           (a, b) =>
             Math.abs(b.change?.pct ?? 0) - Math.abs(a.change?.pct ?? 0),
         );
@@ -61,7 +71,7 @@ export function ProductCatalog({
         break;
     }
 
-    return result;
+    return sortedResult;
   }, [products, search, category, sort]);
 
   const hasFilters = search.trim() !== "" || category !== "all" || sort !== "recommended";

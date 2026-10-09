@@ -407,7 +407,7 @@ export default async function Home() {
             {validProducts.length > 0 && (
               <div className="products-bottom-note">
                 <span>আপনার বাজার, আরও পরিকল্পিত</span>
-                <Link href="/category/chal">
+                <Link href="/categories/chal">
                   পণ্যের বিভাগ দেখুন <ArrowRight size={16} />
                 </Link>
               </div>
@@ -445,11 +445,11 @@ export default async function Home() {
           />
             <span className="brand-copy">
               <span className="brand-name">বাজার দর</span>
-              <span className="brand-tagline">দাম জানুন, সাশ্রয় করুন</span>
+              <span className="brand-tagline">প্রয়োজনীয় পণ্যের দাম এক নজরে।</span>
             </span>
           </Link>
           <p>
-            নিত্যপ্রয়োজনীয় পণ্যের দাম জানুন, সচেতনভাবে বাজার করুন।
+            সকল দাম সম্ভাব্য; বাজার অবস্থার ওপর নির্ভর করে পরিবর্তিত হয়।
           </p>
           <Link href="/#সব-পণ্য" className="footer-link">
             সব পণ্য <ArrowRight size={15} />

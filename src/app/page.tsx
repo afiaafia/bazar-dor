@@ -1,3 +1,5 @@
+export const instant = false;
+
 import Link from "next/link";
 import {
   ArrowDownRight,
@@ -9,6 +11,7 @@ import {
   Clock3,
   Search,
   ShieldCheck,
+  TrendingDown,
 } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { PriceTicker } from "@/components/home/price-ticker";

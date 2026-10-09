@@ -3,15 +3,14 @@ export const instant = false;
 import Link from "next/link";
 import { ArrowRight, ChevronRight, Layers3 } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
-import { ProductCard } from "@/components/products/product-card";
-import { CATEGORY_ITEMS } from "@/constants/categories";
+import { ProductCatalog } from "@/components/products/product-catalog";
+import { CATEGORY_ITEMS, getCategoryVisual } from "@/constants/categories";
 import { getCategories, getProducts } from "@/lib/api";
-import { getCategoryVisual } from "@/constants/categories";
 import type { Category, Product } from "@/types/product";
 
 export const metadata = {
   title: "সব ক্যাটাগরি",
-  description: "নিত্যপ্রয়োজনীয় পণ্যের ক্যাটাগরি ও বাজারদর দেখুন।",
+  description: "নিত্যপ্রয়োজনীয় পণ্যের ক্যাটাগরি, সার্চ ও বাজারদর দেখুন।",
 };
 
 export default async function CategoriesPage() {
@@ -20,19 +19,26 @@ export default async function CategoriesPage() {
   let failed = false;
 
   try {
-    [categories, products] = await Promise.all([getCategories(), getProducts()]);
+    [categories, products] = await Promise.all([
+      getCategories(),
+      getProducts(),
+    ]);
   } catch {
     failed = true;
   }
 
   const displayedCategories =
     categories.length > 0
-      ? categories.map((category) => ({
-          slug: category.slug || category.id,
-          name: category.nameBn,
-          emoji: getCategoryVisual(category.slug || category.id).emoji,
+      ? categories.map((item) => ({
+          slug: item.slug || item.id,
+          name: item.nameBn,
+          emoji: getCategoryVisual(item.slug || item.id).emoji,
         }))
-      : CATEGORY_ITEMS;
+      : CATEGORY_ITEMS.map((item) => ({
+          slug: item.slug,
+          name: item.name,
+          emoji: item.emoji,
+        }));
 
   return (
     <>
@@ -46,7 +52,9 @@ export default async function CategoriesPage() {
           </nav>
 
           <section className="catalog-hero">
-            <span className="catalog-eyebrow"><Layers3 size={15} /> পণ্য অন্বেষণ</span>
+            <span className="catalog-eyebrow">
+              <Layers3 size={15} /> পণ্য অন্বেষণ
+            </span>
             <h1>ক্যাটাগরি অনুযায়ী বাজারদর</h1>
             <p>আপনার প্রয়োজনীয় পণ্য খুঁজুন এবং আজকের দাম তুলনা করুন।</p>
             <div className="catalog-hero-count">
@@ -67,22 +75,22 @@ export default async function CategoriesPage() {
             </div>
 
             <div className="catalog-category-grid">
-              {displayedCategories.map((category) => {
+              {displayedCategories.map((item) => {
                 const count = products.filter(
-                  (product) => product.category === category.slug,
+                  (product) => product.category === item.slug,
                 ).length;
 
                 return (
                   <Link
-                    href={`/categories/${category.slug}`}
-                    key={category.slug}
+                    href={`/categories/${item.slug}`}
+                    key={item.slug}
                     className="catalog-category-card"
                   >
                     <span className="catalog-category-emoji" aria-hidden="true">
-                      {category.emoji}
+                      {item.emoji}
                     </span>
                     <span className="catalog-category-copy">
-                      <strong>{category.name}</strong>
+                      <strong>{item.name}</strong>
                       <small>{count.toLocaleString("bn-BD")} টি পণ্য</small>
                     </span>
                     <ArrowRight size={17} className="catalog-category-arrow" />
@@ -92,16 +100,13 @@ export default async function CategoriesPage() {
             </div>
           </section>
 
-          <section className="catalog-section">
+          <section className="catalog-section" id="সব-পণ্য">
             <div className="catalog-section-heading">
               <div>
                 <span className="catalog-eyebrow">বাজারের তালিকা</span>
                 <h2>সব পণ্য</h2>
-                <p>বর্তমানে API-তে পাওয়া পণ্যের দাম দেখুন।</p>
+                <p>নাম দিয়ে খুঁজুন, ক্যাটাগরি বাছুন অথবা দাম অনুযায়ী সাজান।</p>
               </div>
-              <span className="catalog-result-count">
-                {products.length.toLocaleString("bn-BD")} টি পণ্য
-              </span>
             </div>
 
             {failed ? (
@@ -115,11 +120,10 @@ export default async function CategoriesPage() {
                 <p>পরে আবার চেষ্টা করুন।</p>
               </div>
             ) : (
-              <div className="product-grid">
-                {products.map((product, index) => (
-                  <ProductCard key={product.id} product={product} rank={index + 1} />
-                ))}
-              </div>
+              <ProductCatalog
+                products={products}
+                categories={displayedCategories}
+              />
             )}
           </section>
         </div>

@@ -5060,3 +5060,142 @@ body {
     gap: 2px;
   }
 }
+
+/* Product catalog search, filtering and sorting */
+.product-catalog {
+  display: grid;
+  gap: 16px;
+}
+
+.catalog-toolbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(160px, 220px) minmax(180px, 230px);
+  gap: 12px;
+  align-items: center;
+}
+
+.catalog-search,
+.catalog-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 14px;
+  color: var(--muted-foreground, #737373);
+  background: var(--card, #fff);
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 12px;
+}
+
+.catalog-search:focus-within,
+.catalog-filter:focus-within {
+  border-color: var(--primary, #16a34a);
+  outline: 2px solid transparent;
+}
+
+.catalog-search input,
+.catalog-filter select {
+  width: 100%;
+  min-width: 0;
+  color: var(--foreground, #171717);
+  background: transparent;
+  border: 0;
+  outline: none;
+  font: inherit;
+}
+
+.catalog-search input {
+  padding: 12px 0;
+}
+
+.catalog-search input::placeholder {
+  color: var(--muted-foreground, #737373);
+}
+
+.catalog-filter select {
+  cursor: pointer;
+}
+
+.catalog-clear-search,
+.catalog-reset-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.catalog-clear-search {
+  flex-shrink: 0;
+  padding: 4px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+}
+
+.catalog-toolbar-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.catalog-toolbar-summary p {
+  margin: 0;
+  color: var(--muted-foreground, #737373);
+  font-size: 14px;
+}
+
+.catalog-toolbar-summary strong {
+  color: var(--foreground, #171717);
+}
+
+.catalog-reset-button {
+  padding: 7px 10px;
+  color: var(--foreground, #171717);
+  background: transparent;
+  border: 1px solid var(--border, #e5e7eb);
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+}
+
+.catalog-reset-button:hover {
+  background: var(--muted, #f5f5f5);
+}
+
+.catalog-state .catalog-action-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font: inherit;
+}
+
+@media (max-width: 760px) {
+  .catalog-toolbar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .catalog-search {
+    grid-column: 1 / -1;
+  }
+
+  .catalog-filter {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .catalog-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-search {
+    grid-column: auto;
+  }
+}

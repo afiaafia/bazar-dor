@@ -232,7 +232,7 @@ export default async function Home() {
               {CATEGORY_ITEMS.map((category) => (
                 <Link
                   key={category.slug}
-                  href={`/category/${category.slug}`}
+                  href={`/categories/${category.slug}`}
                   className="category-card"
                 >
                   <span className="category-emoji" aria-hidden="true">

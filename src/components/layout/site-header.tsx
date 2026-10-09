@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth";
 import { HeaderAuthActions } from "@/components/auth/header-auth-actions";
 import Link from "next/link";
 import { CATEGORY_ITEMS } from "@/constants/categories";
+import { CategoryNavigation } from "@/components/layout/category-navigation";
 import { getProducts } from "@/lib/api";
 import { PriceTicker } from "@/components/home/price-ticker";
 import { SiteDate } from "@/components/layout/site-date";
@@ -53,21 +54,7 @@ export async function SiteHeader() {
         </div>
 
         <div className="header-category-row">
-          <nav
-            className="header-category-nav header-container"
-            aria-label="পণ্যের ক্যাটাগরি"
-          >
-            {CATEGORY_ITEMS.map((category) => (
-              <Link
-                key={category.slug}
-                href={`/categories/${category.slug}`}
-                className="header-category-link"
-              >
-                <span aria-hidden="true">{category.emoji}</span>
-                <span>{category.name}</span>
-              </Link>
-            ))}
-          </nav>
+          <CategoryNavigation categories={CATEGORY_ITEMS} />
         </div>
       </header>
 

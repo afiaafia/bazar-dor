@@ -5378,3 +5378,26 @@ body {
     font-size: 12px;
   }
 }
+
+
+/* Active category navigation state */
+.header-category-link-active {
+  position: relative;
+  color: var(--bd-green) !important;
+  font-weight: 800;
+}
+
+.header-category-link-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--bd-green);
+}
+
+.header-category-link-active:hover {
+  color: var(--bd-green-dark) !important;
+}

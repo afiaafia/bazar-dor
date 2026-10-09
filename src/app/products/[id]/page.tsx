@@ -25,6 +25,16 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
+
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect(
+      `/signin?reason=auth-required&callbackURL=${encodeURIComponent(`/products/${id}`)}`,
+    );
+  }
   try {
     const product = await getProductBySlug(id);
     if (product) {
@@ -42,15 +52,6 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function ProductDetailPage({ params }: PageProps) {
   const { id } = await params;
 
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session) {
-    redirect(
-      `/signin?reason=auth-required&callbackURL=${encodeURIComponent(`/products/${id}`)}`,
-    );
-  }
   let product: Product | null = null;
   let relatedProducts: Product[] = [];
   let apiFailed = false;
@@ -92,6 +93,22 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const direction = change > 0 ? "up" : change < 0 ? "down" : "flat";
   const changeClass =
     direction === "up" ? "price-up" : direction === "down" ? "price-down" : "price-flat";
+
+  const marketMin =
+    product.markets.length > 0
+      ? Math.min(...product.markets.map((market) => market.min))
+      : null;
+  const marketMax =
+    product.markets.length > 0
+      ? Math.max(...product.markets.map((market) => market.max))
+      : null;
+  const marketAverage =
+    product.markets.length > 0
+      ? product.markets.reduce(
+          (sum, market) => sum + (market.min + market.max) / 2,
+          0,
+        ) / product.markets.length
+      : null;
 
   return (
     <>
@@ -154,6 +171,34 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 <span><MapPin size={15} /> বাজারভিত্তিক দামের তুলনা</span>
                 <span><TrendingUp size={15} /> পরিবর্তন: {formatBengaliNumber(product.change?.pct ?? 0)}%</span>
               </div>
+            </div>
+          </section>
+
+          <section className="catalog-section">
+            <div className="catalog-section-heading">
+              <div>
+                <span className="catalog-eyebrow">বাজারদরের সারাংশ</span>
+                <h2>সর্বনিম্ন, সর্বোচ্চ ও গড় দাম</h2>
+                <p>API-তে পাওয়া বাজারগুলোর মূল্য থেকে হিসাব করা হয়েছে।</p>
+              </div>
+            </div>
+
+            <div className="price-comparison-grid">
+              <article className="price-comparison-card">
+                <span>সর্বনিম্ন দাম</span>
+                <strong>{marketMin === null ? "তথ্য নেই" : formatTaka(marketMin)}</strong>
+                <small>প্রতি {formatUnit(product.unit)}</small>
+              </article>
+              <article className="price-comparison-card">
+                <span>সর্বোচ্চ দাম</span>
+                <strong>{marketMax === null ? "তথ্য নেই" : formatTaka(marketMax)}</strong>
+                <small>প্রতি {formatUnit(product.unit)}</small>
+              </article>
+              <article className="price-comparison-card current">
+                <span>গড় দাম</span>
+                <strong>{marketAverage === null ? "তথ্য নেই" : formatTaka(marketAverage)}</strong>
+                <small>প্রতি {formatUnit(product.unit)}</small>
+              </article>
             </div>
           </section>
 

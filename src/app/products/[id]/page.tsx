@@ -26,15 +26,6 @@ type PageProps = {
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
 
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
-  if (!session) {
-    redirect(
-      `/signin?reason=auth-required&callbackURL=${encodeURIComponent(`/products/${id}`)}`,
-    );
-  }
   try {
     const product = await getProductBySlug(id);
     if (product) {
@@ -51,6 +42,16 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function ProductDetailPage({ params }: PageProps) {
   const { id } = await params;
+
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect(
+      `/signin?reason=auth-required&callbackURL=${encodeURIComponent(`/products/${id}`)}`,
+    );
+  }
 
   let product: Product | null = null;
   let relatedProducts: Product[] = [];

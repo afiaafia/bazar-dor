@@ -53,12 +53,16 @@ export function AuthForm({
     const confirmation = String(form.get("confirmPassword") ?? "");
 
     if (isSignup && name.length < 2) {
-      setMessage("আপনার নাম কমপক্ষে ২ অক্ষরের হতে হবে।");
+      const error = "আপনার নাম কমপক্ষে ২ অক্ষরের হতে হবে।";
+      setMessage(error);
+      toast.error(error);
       return;
     }
 
     if (isSignup && password !== confirmation) {
-      setMessage("দুটি পাসওয়ার্ড মিলছে না। আবার পরীক্ষা করুন।");
+      const error = "দুটি পাসওয়ার্ড মিলছে না। আবার পরীক্ষা করুন।";
+      setMessage(error);
+      toast.error(error);
       return;
     }
 
@@ -86,9 +90,10 @@ export function AuthForm({
         router.push(getSafeCallbackURL());
       }
     } catch {
-      setMessage(
-        "সার্ভারের সঙ্গে সংযোগ করা যায়নি। MongoDB ও development server পরীক্ষা করুন।",
-      );
+      const error =
+        "সার্ভারের সঙ্গে সংযোগ করা যায়নি। MongoDB ও server configuration পরীক্ষা করুন।";
+      setMessage(error);
+      toast.error(error);
     } finally {
       setIsSubmitting(false);
     }
@@ -125,7 +130,9 @@ export function AuthForm({
         toast.error(errorMessage);
       }
     } catch {
-      setMessage("সোশ্যাল সাইন ইন করা যায়নি। আবার চেষ্টা করুন।");
+      const error = "সোশ্যাল সাইন ইন করা যায়নি। আবার চেষ্টা করুন।";
+      setMessage(error);
+      toast.error(error);
     } finally {
       setIsSubmitting(false);
     }

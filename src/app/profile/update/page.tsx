@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { ArrowLeft, UserRound } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
+import { ProfileActions } from "@/components/profile/profile-actions";
+import { auth } from "@/lib/auth";
 
 export const instant = false;
 
@@ -10,7 +14,15 @@ export const metadata: Metadata = {
   description: "বাজার দর প্রোফাইলের তথ্য পরিবর্তন করুন।",
 };
 
-export default function UpdateProfilePage() {
+export default async function UpdateProfilePage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/signin");
+  }
+
   return (
     <>
       <SiteHeader />
@@ -21,17 +33,16 @@ export default function UpdateProfilePage() {
           </Link>
 
           <section className="profile-edit-card">
-            <div className="profile-edit-icon"><UserRound size={25} /></div>
+            <div className="profile-edit-icon">
+              <UserRound size={25} />
+            </div>
             <span className="catalog-eyebrow">অ্যাকাউন্ট সেটিংস</span>
             <h1>প্রোফাইল আপডেট</h1>
             <p>
-              ব্যক্তিগত তথ্য সম্পাদনা করতে প্রথমে আপনার অ্যাকাউন্টে
-              সাইন ইন করুন। প্রোফাইল সংরক্ষণ এখনো authentication
-              backend-এর সঙ্গে সংযুক্ত নয়।
+              আপনার অ্যাকাউন্টের নাম আপডেট করুন। পরিবর্তনগুলো Better Auth-এর
+              মাধ্যমে সংরক্ষিত হবে।
             </p>
-            <Link href="/signin" className="auth-submit profile-edit-cta">
-              সাইন ইন করুন
-            </Link>
+            <ProfileActions initialName={session.user.name || ""} />
           </section>
         </div>
       </main>

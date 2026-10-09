@@ -3696,3 +3696,78 @@ body {
     transition: none;
   }
 }
+
+/* Authenticated profile actions */
+.profile-actions {
+  display: grid;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.profile-name-form {
+  display: grid;
+  gap: 14px;
+  max-width: 480px;
+}
+
+.profile-name-input {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  background: #fff;
+  color: #0f172a;
+  outline: none;
+}
+
+.profile-name-input:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgb(22 163 74 / 10%);
+}
+
+.profile-name-form .auth-submit {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  padding: 0 18px;
+}
+
+.profile-signout-button {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 14px;
+  border: 1px solid #fecaca;
+  border-radius: 9px;
+  background: #fff;
+  color: #b91c1c;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.profile-signout-button:hover {
+  background: #fef2f2;
+}
+
+.profile-signout-button:disabled,
+.profile-name-form .auth-submit:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.profile-summary-copy .profile-option-status {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+  .profile-name-form .auth-submit {
+    width: 100%;
+  }
+}

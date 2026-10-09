@@ -1,7 +1,8 @@
 export const instant = false;
 
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { headers } from "next/headers";
+import { notFound, redirect } from "next/navigation";
 import {
   ArrowDownRight,
   ArrowLeft,
@@ -16,6 +17,7 @@ import { getCategoryVisual } from "@/constants/categories";
 import { getProductBySlug, getProducts } from "@/lib/api";
 import { formatBengaliNumber, formatTaka, formatUnit } from "@/lib/format";
 import type { Product } from "@/types/product";
+import { auth } from "@/lib/auth";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -38,6 +40,14 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function ProductDetailPage({ params }: PageProps) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/signin");
+  }
+
   const { id } = await params;
   let product: Product | null = null;
   let relatedProducts: Product[] = [];

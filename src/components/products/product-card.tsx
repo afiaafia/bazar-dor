@@ -17,7 +17,7 @@ export function ProductCard({ product, rank }: ProductCardProps) {
   return (
     <article className="product-card">
       <Link
-        href={`/product/${product.slug}`}
+        href={`/products/${product.id}`}
         className="product-card-link"
         aria-label={`${product.nameBn} পণ্যের বিস্তারিত দেখুন`}
       >

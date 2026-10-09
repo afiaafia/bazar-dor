@@ -47,7 +47,7 @@ export function SiteHeader() {
           <Link href="/" className="nav-link nav-link-active">
             হোম
           </Link>
-          <Link href="/#ক্যাটাগরি" className="nav-link">
+          <Link href="/categories" className="nav-link">
             ক্যাটাগরি
           </Link>
           <Link href="/#সব-পণ্য" className="nav-link">
@@ -80,7 +80,7 @@ export function SiteHeader() {
           {CATEGORY_ITEMS.map((category) => (
             <Link
               key={category.slug}
-              href={`/category/${category.slug}`}
+              href={`/categories/${category.slug}`}
               className="mobile-category-link"
             >
               <span aria-hidden="true">{category.emoji}</span>

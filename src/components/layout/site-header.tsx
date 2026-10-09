@@ -1,4 +1,7 @@
 import Image from "next/image";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
+import { HeaderAuthActions } from "@/components/auth/header-auth-actions";
 import Link from "next/link";
 import { CATEGORY_ITEMS } from "@/constants/categories";
 import { getProducts } from "@/lib/api";
@@ -7,6 +10,18 @@ import { SiteDate } from "@/components/layout/site-date";
 import type { Product } from "@/types/product";
 
 export async function SiteHeader() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  const headerUser = session
+    ? {
+        name: session.user.name || "",
+        email: session.user.email || "",
+        image: session.user.image || null,
+      }
+    : null;
+
   let products: Product[] = [];
 
   try {
@@ -34,14 +49,7 @@ export async function SiteHeader() {
             </span>
           </Link>
 
-          <div className="header-actions">
-            <Link href="/signin" className="signin-link">
-              সাইন ইন
-            </Link>
-            <Link href="/signup" className="register-link">
-              সাইন আপ
-            </Link>
-          </div>
+          <HeaderAuthActions user={headerUser} />
         </div>
 
         <div className="header-category-row">

@@ -2,14 +2,28 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { LogOut, Save } from "lucide-react";
+import Image from "next/image";
+import { LogOut, Save, UserRound } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
-export function ProfileActions({ initialName }: { initialName: string }) {
+type ProfileActionsProps = {
+  initialName: string;
+  email: string;
+  image?: string | null;
+};
+
+export function ProfileActions({
+  initialName,
+  email,
+  image,
+}: ProfileActionsProps) {
   const router = useRouter();
   const [name, setName] = useState(initialName);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<"success" | "error">(
+    "success",
+  );
 
   async function saveProfile(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -18,6 +32,7 @@ export function ProfileActions({ initialName }: { initialName: string }) {
     const cleanName = name.trim();
 
     if (cleanName.length < 2) {
+      setMessageType("error");
       setMessage("নাম কমপক্ষে ২ অক্ষরের হতে হবে।");
       return;
     }
@@ -28,14 +43,18 @@ export function ProfileActions({ initialName }: { initialName: string }) {
       const result = await authClient.updateUser({ name: cleanName });
 
       if (result.error) {
+        setMessageType("error");
         setMessage(result.error.message ?? "নাম আপডেট করা যায়নি।");
         return;
       }
 
+      setName(cleanName);
+      setMessageType("success");
       setMessage("আপনার নাম সফলভাবে আপডেট হয়েছে।");
       router.refresh();
     } catch {
-      setMessage("অনুরোধ সম্পন্ন হয়নি। আবার চেষ্টা করুন।");
+      setMessageType("error");
+      setMessage("আপডেট করা যায়নি। আবার চেষ্টা করুন।");
     } finally {
       setBusy(false);
     }
@@ -49,55 +68,99 @@ export function ProfileActions({ initialName }: { initialName: string }) {
       const result = await authClient.signOut();
 
       if (result.error) {
+        setMessageType("error");
         setMessage(result.error.message ?? "সাইন আউট করা যায়নি।");
+        setBusy(false);
         return;
       }
 
       window.location.assign("/signin");
     } catch {
+      setMessageType("error");
       setMessage("সাইন আউট করা যায়নি। আবার চেষ্টা করুন।");
-    } finally {
       setBusy(false);
     }
   }
 
+  const initials = name.trim().charAt(0).toUpperCase() || "ব";
+
   return (
-    <div className="profile-actions">
-      <form className="profile-name-form" onSubmit={saveProfile}>
-        <label className="auth-field">
-          <span>আপনার নাম</span>
+    <div className="account-profile-content">
+      <section className="account-user-card" aria-label="ব্যবহারকারীর তথ্য">
+        <div className="account-user-identity">
+          <div className="account-user-avatar">
+            {image ? (
+              <Image
+                src={image}
+                alt={`${name || "ব্যবহারকারী"}-এর প্রোফাইল ছবি`}
+                width={76}
+                height={76}
+                unoptimized
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <span className="account-user-avatar-fallback">
+                {initials || <UserRound size={30} />}
+              </span>
+            )}
+          </div>
+
+          <div className="account-user-copy">
+            <h2>{name || "ব্যবহারকারী"}</h2>
+            <p>{email}</p>
+          </div>
+        </div>
+
+        <button
+          className="account-signout-button"
+          type="button"
+          onClick={signOut}
+          disabled={busy}
+        >
+          <LogOut size={17} />
+          <span>{busy ? "অপেক্ষা করুন..." : "সাইন আউট"}</span>
+        </button>
+      </section>
+
+      <section className="account-information-card">
+        <h2>তথ্য</h2>
+
+        <form onSubmit={saveProfile} className="account-profile-form">
+          <label htmlFor="profile-name">নাম</label>
+
           <input
-            className="profile-name-input"
+            id="profile-name"
+            type="text"
             value={name}
             onChange={(event) => setName(event.target.value)}
             minLength={2}
             maxLength={100}
             autoComplete="name"
+            placeholder="আপনার নাম লিখুন"
             required
+            disabled={busy}
           />
-        </label>
 
-        <button className="auth-submit" type="submit" disabled={busy}>
-          <Save size={16} />
-          {busy ? "অপেক্ষা করুন..." : "নাম সংরক্ষণ করুন"}
-        </button>
-      </form>
+          {message && (
+            <p
+              className={`account-profile-message ${messageType}`}
+              role="status"
+              aria-live="polite"
+            >
+              {message}
+            </p>
+          )}
 
-      <button
-        className="profile-signout-button"
-        type="button"
-        onClick={signOut}
-        disabled={busy}
-      >
-        <LogOut size={16} />
-        সাইন আউট
-      </button>
-
-      {message && (
-        <p className="auth-notice" role="status">
-          {message}
-        </p>
-      )}
+          <button
+            className="account-profile-update-button"
+            type="submit"
+            disabled={busy}
+          >
+            <Save size={17} />
+            {busy ? "আপডেট হচ্ছে..." : "আপডেট"}
+          </button>
+        </form>
+      </section>
     </div>
   );
 }

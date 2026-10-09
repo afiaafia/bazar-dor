@@ -42,7 +42,7 @@ export default async function UpdateProfilePage() {
               আপনার অ্যাকাউন্টের নাম আপডেট করুন। পরিবর্তনগুলো Better Auth-এর
               মাধ্যমে সংরক্ষিত হবে।
             </p>
-            <ProfileActions initialName={session.user.name || ""} />
+            <ProfileActions initialName={session.user.name || ""} email={session.user.email || ""} image={session.user.image || null} />
           </section>
         </div>
       </main>

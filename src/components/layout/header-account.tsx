@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChevronDown, LogOut, UserRound } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 export function HeaderAccount() {
   const { data: session, isPending } = authClient.useSession();
@@ -42,12 +43,21 @@ export function HeaderAccount() {
     setSigningOut(true);
 
     try {
-      await authClient.signOut();
+      const result = await authClient.signOut();
+
+      if (result.error) {
+        toast.error(result.error.message || "সাইন আউট করা যায়নি। আবার চেষ্টা করুন।");
+        return;
+      }
+
+      toast.success("সাইন আউট সম্পন্ন হয়েছে।");
       setOpen(false);
       router.replace("/");
       router.refresh();
     } catch (error) {
       console.error("Sign out failed:", error);
+      toast.error("সাইন আউট করা যায়নি। আবার চেষ্টা করুন।");
+    } finally {
       setSigningOut(false);
     }
   }

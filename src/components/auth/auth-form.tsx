@@ -108,9 +108,10 @@ export function AuthForm({
           ? "GOOGLE_CLIENT_ID এবং GOOGLE_CLIENT_SECRET"
           : "GITHUB_CLIENT_ID এবং GITHUB_CLIENT_SECRET";
 
-      setMessage(
-        `${provider === "google" ? "Google" : "GitHub"} দিয়ে সাইন ইন চালু করতে .env.local-এ ${variables} সেট করতে হবে।`,
-      );
+      const error =
+        `${provider === "google" ? "Google" : "GitHub"} দিয়ে সাইন ইন চালু করতে .env.local-এ ${variables} সেট করতে হবে।`;
+      setMessage(error);
+      toast.error(error);
       return;
     }
 

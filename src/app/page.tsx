@@ -15,7 +15,6 @@ import {
   TrendingDown,
 } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
-import { PriceTicker } from "@/components/home/price-ticker";
 import { ProductCard } from "@/components/products/product-card";
 import { CATEGORY_ITEMS } from "@/constants/categories";
 import { getProducts } from "@/lib/api";
@@ -101,7 +100,6 @@ export default async function Home() {
   return (
     <>
       <SiteHeader />
-      <PriceTicker products={validProducts} />
 
       <main>
         <section className="hero-section">

@@ -18,8 +18,8 @@ export function SiteDate() {
   }, []);
 
   return (
-    <p className="top-strip-current-date">
-      {today || "আজকের তারিখ"}
-    </p>
+    <span className="brand-date">
+      {today || "বাংলাদেশের বাজারদর"}
+    </span>
   );
 }

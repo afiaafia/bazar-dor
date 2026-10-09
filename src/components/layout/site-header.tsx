@@ -1,87 +1,69 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, MapPin } from "lucide-react";
 import { CATEGORY_ITEMS } from "@/constants/categories";
+import { getProducts } from "@/lib/api";
+import { PriceTicker } from "@/components/home/price-ticker";
 import { SiteDate } from "@/components/layout/site-date";
+import type { Product } from "@/types/product";
 
-export function SiteHeader() {
+export async function SiteHeader() {
+  let products: Product[] = [];
+
+  try {
+    products = await getProducts();
+  } catch {
+    products = [];
+  }
+
   return (
-    <header className="site-header">
-      <div className="top-strip">
-        <div className="site-container top-strip-inner">
-          <p className="top-strip-date">
-            <MapPin size={14} aria-hidden="true" />
-            বাংলাদেশের বাজারদর, এক জায়গায়
-          </p>
-          <SiteDate />
-        </div>
-      </div>
-
-      <div className="site-container header-main">
-        <Link href="/" className="brand" aria-label="বাজার দর হোম">
-          <Image
-            src="/images/logo-icon.png"
-            alt=""
-            width={43}
-            height={43}
-            className="brand-icon"
-            aria-hidden="true"
-          />
-
-          <span className="brand-copy">
-            <span className="brand-name">বাজার দর</span>
-            <span className="brand-tagline">
-              দাম জানুন, সাশ্রয় করুন
+    <>
+      <header className="site-header figma-header">
+        <div className="site-container header-container header-main">
+          <Link href="/" className="brand" aria-label="বাজার দর হোম">
+            <Image
+              src="/images/logo-icon.png"
+              alt=""
+              width={34}
+              height={34}
+              className="brand-icon"
+              priority
+            />
+            <span className="brand-copy">
+              <span className="brand-name">বাজার দর</span>
+              <SiteDate />
             </span>
-          </span>
-        </Link>
-
-        <nav className="main-nav" aria-label="প্রধান নেভিগেশন">
-          <Link href="/" className="nav-link nav-link-active">
-            হোম
-          </Link>
-          <Link href="/categories" className="nav-link">
-            ক্যাটাগরি
-          </Link>
-          <Link href="/#সব-পণ্য" className="nav-link">
-            আজকের দর
-          </Link>
-          <Link href="/#দামের-পরিবর্তন" className="nav-link">
-            দামের পরিবর্তন
-          </Link>
-        </nav>
-
-        <div className="header-actions">
-          <span className="location-pill">
-            <MapPin size={14} aria-hidden="true" />
-            ঢাকা
-          </span>
-
-          <Link href="/signin" className="signin-link">
-            লগইন
           </Link>
 
-          <Link href="/signup" className="register-link">
-            রেজিস্টার
-            <ArrowUpRight size={15} aria-hidden="true" />
-          </Link>
-        </div>
-      </div>
-
-      <div className="mobile-category-nav">
-        <div className="site-container mobile-category-list">
-          {CATEGORY_ITEMS.map((category) => (
-            <Link
-              key={category.slug}
-              href={`/categories/${category.slug}`}
-              className="mobile-category-link"
-            >
-              <span aria-hidden="true">{category.emoji}</span>
-              {category.name}
+          <div className="header-actions">
+            <Link href="/signin" className="signin-link">
+              সাইন ইন
             </Link>
-          ))}
+            <Link href="/signup" className="register-link">
+              সাইন আপ
+            </Link>
+          </div>
         </div>
-      </div>
-    </header>
+
+        <div className="header-category-row">
+          <nav
+            className="header-category-nav header-container"
+            aria-label="পণ্যের ক্যাটাগরি"
+          >
+            {CATEGORY_ITEMS.map((category) => (
+              <Link
+                key={category.slug}
+                href={`/categories/${category.slug}`}
+                className="header-category-link"
+              >
+                <span aria-hidden="true">{category.emoji}</span>
+                <span>{category.name}</span>
+              </Link>
+            ))}
+          </nav>
+        </div>
+      </header>
+
+      <PriceTicker products={products} />
+    </>
   );
 }

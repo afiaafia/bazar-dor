@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { AuthForm } from "@/components/auth/auth-form";
+import { AuthFooter } from "@/components/layout/auth-footer";
+import { SiteHeader } from "@/components/layout/site-header";
 
 export const instant = false;
 
@@ -10,25 +12,24 @@ export const metadata: Metadata = {
 
 export default function SignInPage() {
   return (
-    <main className="auth-page">
-      <div className="auth-layout">
-        <div className="auth-side-panel">
-          <span className="auth-side-eyebrow">BAZAR DOR · বাজার দর</span>
-          <h2>বাজার বুঝুন।<br />সাশ্রয় করুন।</h2>
-          <p>
-            নিত্যপ্রয়োজনীয় পণ্যের দাম তুলনা করুন এবং সচেতনভাবে
-            বাজার করার পরিকল্পনা নিন।
-          </p>
-          <div className="auth-side-stat">
-            <span aria-hidden="true">৳</span>
-            <div>
-              <strong>দাম থাকুক আপনার জানা</strong>
-              <small>বাজার করার আগে, বাজারদর দেখুন</small>
-            </div>
-          </div>
-        </div>
-        <AuthForm mode="signin" />
-      </div>
-    </main>
+    <>
+      <SiteHeader />
+      <main className="auth-page figma-auth-page">
+        <AuthForm
+          mode="signin"
+          socialProviders={{
+            google: Boolean(
+              process.env.GOOGLE_CLIENT_ID &&
+              process.env.GOOGLE_CLIENT_SECRET,
+            ),
+            github: Boolean(
+              process.env.GITHUB_CLIENT_ID &&
+              process.env.GITHUB_CLIENT_SECRET,
+            ),
+          }}
+        />
+      </main>
+      <AuthFooter />
+    </>
   );
 }

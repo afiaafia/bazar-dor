@@ -3771,3 +3771,482 @@ body {
     width: 100%;
   }
 }
+
+/* ==========================================
+   FIGMA AUTH PAGES — BAZAR DOR
+   Centered, minimal, white layout
+   ========================================== */
+
+.figma-header {
+  border-bottom: 0;
+  background: #fff;
+}
+
+.header-container {
+  width: min(860px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+.figma-header .header-main {
+  min-height: 52px;
+  padding-block: 7px;
+  gap: 12px;
+}
+
+.figma-header .brand {
+  gap: 7px;
+}
+
+.figma-header .brand-icon {
+  width: 31px;
+  height: 31px;
+  padding: 2px;
+  border: 0;
+  border-radius: 10px;
+  background: #009f4b;
+  object-fit: contain;
+}
+
+.figma-header .brand-copy {
+  gap: 1px;
+}
+
+.figma-header .brand-name {
+  color: #1d3326;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.figma-header .brand-date {
+  display: block;
+  color: #718077;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.figma-header .header-actions {
+  gap: 18px;
+}
+
+.figma-header .signin-link {
+  min-height: 30px;
+  padding: 0 5px;
+  border: 0;
+  background: transparent;
+  color: #1e293b;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.figma-header .signin-link:hover {
+  background: transparent;
+  color: #009f4b;
+}
+
+.figma-header .register-link {
+  min-height: 31px;
+  padding-inline: 14px;
+  border: 0;
+  border-radius: 7px;
+  background: #009f4b;
+  box-shadow: 0 2px 0 rgb(0 100 45 / 15%);
+  color: #fff;
+  font-size: 11px;
+}
+
+.figma-header .register-link:hover {
+  background: #008640;
+}
+
+.header-category-row {
+  border-top: 1px solid #fafafa;
+}
+
+.header-category-nav {
+  display: flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 22px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.header-category-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.header-category-link {
+  display: inline-flex;
+  min-height: 29px;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 5px;
+  color: #27372d;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 150ms ease;
+}
+
+.header-category-link:hover {
+  color: #009f4b;
+}
+
+.figma-ticker {
+  min-height: 31px;
+  border-top: 0;
+  border-bottom: 1px solid #f8faf8;
+  background: #fff;
+}
+
+.figma-ticker .ticker-viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.figma-ticker .ticker-track {
+  animation-duration: 70s;
+}
+
+.figma-ticker .ticker-item {
+  gap: 5px;
+  padding-inline: 13px;
+  border-right: 0;
+  font-size: 10px;
+}
+
+.figma-ticker .ticker-product {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.figma-ticker .ticker-item strong {
+  color: #303d34;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.figma-ticker .ticker-change {
+  gap: 1px;
+  font-size: 10px;
+}
+
+.figma-ticker .ticker-change.up {
+  color: #ef4444;
+}
+
+.figma-ticker .ticker-change.down {
+  color: #00a651;
+}
+
+/* Keep the authentication area unboxed and centered like the reference. */
+.figma-auth-page {
+  flex: 1 0 auto;
+  min-height: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 31px 16px 42px;
+  background: #fff;
+}
+
+.figma-auth-card {
+  width: min(100%, 280px);
+  max-width: 280px;
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #25352b;
+}
+
+.figma-auth-card h1 {
+  margin: 0;
+  color: #24352a;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: -0.35px;
+  text-align: center;
+}
+
+.figma-auth-card .auth-description {
+  margin-top: 4px;
+  color: #8a958d;
+  font-size: 11px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.figma-auth-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.figma-auth-field {
+  display: grid;
+  gap: 4px;
+  color: #2e3d33;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.figma-auth-input {
+  width: 100%;
+  min-width: 0;
+  height: 29px;
+  padding: 4px 10px;
+  border: 1px solid #f0f3f0;
+  border-radius: 5px;
+  outline: 0;
+  background: #fff;
+  color: #26372b;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 400;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.figma-auth-input::placeholder {
+  color: #7d8980;
+  opacity: 1;
+}
+
+.figma-auth-input:focus {
+  border-color: #75c894;
+  box-shadow: 0 0 0 2px rgb(0 159 75 / 8%);
+}
+
+.figma-auth-submit {
+  width: 100%;
+  min-height: 32px;
+  margin-top: 4px;
+  border-radius: 7px;
+  background: #009f4b;
+  box-shadow: 0 2px 0 rgb(0 100 45 / 12%);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.figma-auth-submit:hover {
+  background: #008b41;
+}
+
+.figma-auth-submit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.figma-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 11px;
+  color: #8a948c;
+  font-size: 10px;
+}
+
+.figma-divider > span:first-child,
+.figma-divider > span:last-child {
+  width: 42px;
+  height: 1px;
+  background: #f1f3f1;
+}
+
+.figma-social-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.figma-social-button {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: #25352b;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.figma-social-button:hover {
+  color: #008b41;
+}
+
+.figma-social-button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.google-g {
+  display: inline-block;
+  background: conic-gradient(
+    from -45deg,
+    #4285f4 0 25%,
+    #34a853 25% 48%,
+    #fbbc05 48% 72%,
+    #ea4335 72% 88%,
+    #4285f4 88% 100%
+  );
+  background-clip: text;
+  color: transparent;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  -webkit-background-clip: text;
+}
+
+.figma-auth-switch {
+  margin-top: 17px;
+  color: #7a867d;
+  font-size: 10px;
+  text-align: center;
+}
+
+.figma-auth-switch a {
+  color: #00a651;
+  font-weight: 600;
+}
+
+.figma-auth-switch a:hover {
+  text-decoration: underline;
+}
+
+.figma-auth-home {
+  display: block;
+  width: fit-content;
+  margin: 35px auto 0;
+  color: #8a968d;
+  font-size: 10px;
+}
+
+.figma-auth-home:hover {
+  color: #008b41;
+}
+
+.figma-auth-card .auth-notice {
+  margin-top: 2px;
+  padding: 9px;
+  border-color: #fee2e2;
+  background: #fff7f7;
+  color: #b91c1c;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.auth-footer {
+  flex-shrink: 0;
+  margin-top: auto;
+  background: #fff;
+}
+
+.auth-footer-inner {
+  display: flex;
+  width: min(860px, calc(100% - 32px));
+  min-height: 39px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-inline: auto;
+  padding-block: 8px;
+  color: #77837a;
+  font-size: 9px;
+  line-height: 1.7;
+}
+
+.auth-footer-inner p:last-child {
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .header-container {
+    width: calc(100% - 28px);
+  }
+
+  .figma-header .header-main {
+    min-height: 49px;
+  }
+
+  .figma-header .header-actions {
+    gap: 9px;
+  }
+
+  .figma-header .brand-name {
+    font-size: 15px;
+  }
+
+  .header-category-nav {
+    width: 100%;
+    gap: 17px;
+    padding-inline: 14px;
+  }
+
+  .figma-ticker .ticker-item {
+    padding-inline: 10px;
+  }
+
+  .figma-auth-page {
+    padding: 30px 16px 38px;
+  }
+
+  .auth-footer-inner {
+    width: calc(100% - 28px);
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+    padding-block: 12px;
+  }
+
+  .auth-footer-inner p:last-child {
+    text-align: left;
+  }
+}
+
+@media (max-width: 360px) {
+  .figma-header .header-actions {
+    gap: 5px;
+  }
+
+  .figma-header .signin-link {
+    font-size: 10px;
+  }
+
+  .figma-header .register-link {
+    padding-inline: 9px;
+    font-size: 10px;
+  }
+
+  .figma-auth-card {
+    width: min(100%, 280px);
+  }
+
+  .figma-social-row {
+    gap: 8px;
+  }
+
+  .figma-social-button {
+    gap: 4px;
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .figma-ticker .ticker-track {
+    animation: none;
+  }
+}

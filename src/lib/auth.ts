@@ -4,6 +4,8 @@ import { MongoClient } from "mongodb";
 
 const mongoUri = process.env.MONGODB_URI;
 const authSecret = process.env.BETTER_AUTH_SECRET;
+const baseURL =
+  process.env.BETTER_AUTH_URL ?? "http://localhost:3000";
 
 if (!mongoUri) {
   throw new Error("MONGODB_URI is missing from .env.local");
@@ -16,20 +18,41 @@ if (!authSecret || authSecret.length < 32) {
 const mongoClient = new MongoClient(mongoUri);
 const database = mongoClient.db();
 
+const socialProviders = {
+  ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+    ? {
+        google: {
+          clientId: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        },
+      }
+    : {}),
+  ...(process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET
+    ? {
+        github: {
+          clientId: process.env.GITHUB_CLIENT_ID,
+          clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        },
+      }
+    : {}),
+};
+
 export const auth = betterAuth({
   database: mongodbAdapter(database, {
     client: mongoClient,
   }),
 
   secret: authSecret,
-  baseURL: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
+  baseURL,
 
-  trustedOrigins: [
-    process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
-  ],
+  trustedOrigins: [baseURL],
 
   emailAndPassword: {
     enabled: true,
     minPasswordLength: 8,
   },
+
+  ...(Object.keys(socialProviders).length > 0
+    ? { socialProviders }
+    : {}),
 });

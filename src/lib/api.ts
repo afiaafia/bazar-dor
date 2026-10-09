@@ -1,21 +1,41 @@
 import type { Category, Product } from "@/types/product";
 
-const API_BASE_URL =
+const PRIMARY_API_URL =
   process.env.BAZAR_DOR_API_URL ??
   "https://api.api-store.workers.dev/api/bazardor";
 
-async function fetchApi<T>(path: string): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    cache: "no-store",
-  });
+const FALLBACK_API_URL =
+  "https://api.abcz.workers.dev/api/bazardor";
 
-  if (!response.ok) {
-    throw new Error(
-      `Bazar Dor API request failed: ${response.status} ${response.statusText}`,
-    );
+async function fetchApi<T>(path: string): Promise<T> {
+  const apiUrls = [
+    ...new Set([PRIMARY_API_URL, FALLBACK_API_URL]),
+  ];
+
+  let lastError: Error | null = null;
+
+  for (const baseUrl of apiUrls) {
+    try {
+      const response = await fetch(`${baseUrl}${path}`, {
+        cache: "no-store",
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Bazar Dor API request failed: ${response.status} ${response.statusText}`,
+        );
+      }
+
+      return (await response.json()) as T;
+    } catch (error) {
+      lastError =
+        error instanceof Error
+          ? error
+          : new Error("Unknown API request error");
+    }
   }
 
-  return response.json() as Promise<T>;
+  throw lastError ?? new Error("All Bazar Dor API endpoints failed.");
 }
 
 export function getProducts(): Promise<Product[]> {

@@ -5,7 +5,9 @@ import { MongoClient } from "mongodb";
 const mongoUri = process.env.MONGODB_URI;
 const authSecret = process.env.BETTER_AUTH_SECRET;
 const baseURL =
-  process.env.BETTER_AUTH_URL ?? "http://localhost:3000";
+  process.env.BETTER_AUTH_URL ??
+  process.env.NEXT_PUBLIC_BETTER_AUTH_URL ??
+  "http://localhost:3000";
 
 if (!mongoUri) {
   throw new Error("MONGODB_URI is missing from .env.local");
@@ -45,7 +47,25 @@ export const auth = betterAuth({
   secret: authSecret,
   baseURL,
 
-  trustedOrigins: [baseURL],
+  trustedOrigins: [
+    ...new Set(
+      [
+        baseURL,
+        process.env.BETTER_AUTH_URL,
+        process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+      ].filter((value): value is string => Boolean(value)),
+    ),
+  ],
+
+  logger: {
+    level: "debug",
+  },
+
+  onAPIError: {
+    onError: (error) => {
+      console.error("[Better Auth API Error]", error);
+    },
+  },
 
   emailAndPassword: {
     enabled: true,

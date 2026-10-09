@@ -25,6 +25,15 @@ export function AuthForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
 
+  function getSafeCallbackURL() {
+    const value = new URLSearchParams(window.location.search).get("callbackURL");
+
+    // Only allow local paths; reject external redirect destinations.
+    return value && value.startsWith("/") && !value.startsWith("//")
+      ? value
+      : "/";
+  }
+
   useEffect(() => {
     const reason = new URLSearchParams(window.location.search).get("reason");
 
@@ -74,7 +83,7 @@ export function AuthForm({
         router.push("/signin");
       } else {
         toast.success("Signed in successfully.");
-        router.push("/");
+        router.push(getSafeCallbackURL());
       }
     } catch {
       setMessage(
@@ -105,7 +114,7 @@ export function AuthForm({
     try {
       const result = await authClient.signIn.social({
         provider,
-        callbackURL: "/",
+        callbackURL: getSafeCallbackURL(),
       });
 
       if (result.error) {

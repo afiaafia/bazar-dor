@@ -40,15 +40,17 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function ProductDetailPage({ params }: PageProps) {
+  const { id } = await params;
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
   if (!session) {
-    redirect("/signin?reason=auth-required");
+    redirect(
+      `/signin?reason=auth-required&callbackURL=${encodeURIComponent(`/products/${id}`)}`,
+    );
   }
-
-  const { id } = await params;
   let product: Product | null = null;
   let relatedProducts: Product[] = [];
   let apiFailed = false;

@@ -30,7 +30,7 @@ export function PriceTicker({ products }: { products: Product[] }) {
 
                 return (
                   <Link
-                    href={`/products/${product.id}`}
+                    href={`/product/${product.slug || product.id}`}
                     className="ticker-item"
                     key={`${copy}-${product.id}`}
                     tabIndex={copy === 1 ? -1 : undefined}

@@ -29,10 +29,6 @@ export default async function ProfilePage() {
 
       <main className="account-profile-page">
         <div className="account-profile-container">
-          <div className="account-profile-mark" aria-hidden="true">
-            <span>ব</span>
-          </div>
-
           <header className="account-profile-heading">
             <h1>আমার প্রোফাইল</h1>
             <p>আপনার অ্যাকাউন্টের তথ্য এখানে দেখুন।</p>

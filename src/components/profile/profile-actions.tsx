@@ -20,6 +20,7 @@ export function ProfileActions({
 }: ProfileActionsProps) {
   const router = useRouter();
   const [name, setName] = useState(initialName);
+  const [savedName, setSavedName] = useState(initialName);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error">(
@@ -50,6 +51,7 @@ export function ProfileActions({
       }
 
       setName(cleanName);
+      setSavedName(cleanName);
       setMessageType("success");
       setMessage("আপনার নাম সফলভাবে আপডেট হয়েছে।");
       toast.success("Profile updated successfully.");
@@ -85,7 +87,7 @@ export function ProfileActions({
     }
   }
 
-  const initials = name.trim().charAt(0).toUpperCase() || "ব";
+  const initials = savedName.trim().charAt(0).toUpperCase() || "ব";
 
   return (
     <div className="account-profile-content">
@@ -95,7 +97,7 @@ export function ProfileActions({
             {image ? (
               <Image
                 src={image}
-                alt={`${name || "ব্যবহারকারী"}-এর প্রোফাইল ছবি`}
+                alt={`${savedName || "ব্যবহারকারী"}-এর প্রোফাইল ছবি`}
                 width={76}
                 height={76}
                 unoptimized
@@ -109,7 +111,7 @@ export function ProfileActions({
           </div>
 
           <div className="account-user-copy">
-            <h2>{name || "ব্যবহারকারী"}</h2>
+            <h2>{savedName || "ব্যবহারকারী"}</h2>
             <p>{email}</p>
           </div>
         </div>

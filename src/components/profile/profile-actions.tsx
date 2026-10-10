@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { LogOut, Save, UserRound } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
@@ -11,12 +12,14 @@ type ProfileActionsProps = {
   initialName: string;
   email: string;
   image?: string | null;
+  mode?: "overview" | "edit";
 };
 
 export function ProfileActions({
   initialName,
   email,
   image,
+  mode = "edit",
 }: ProfileActionsProps) {
   const router = useRouter();
   const [name, setName] = useState(initialName);
@@ -127,45 +130,59 @@ export function ProfileActions({
         </button>
       </section>
 
-      <section className="account-information-card">
-        <h2>তথ্য</h2>
-
-        <form onSubmit={saveProfile} className="account-profile-form">
-          <label htmlFor="profile-name">নাম</label>
-
-          <input
-            id="profile-name"
-            type="text"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            minLength={2}
-            maxLength={100}
-            autoComplete="name"
-            placeholder="আপনার নাম লিখুন"
-            required
-            disabled={busy}
-          />
-
-          {message && (
-            <p
-              className={`account-profile-message ${messageType}`}
-              role="status"
-              aria-live="polite"
+      {mode === "edit" ? (
+        <section className="account-information-card">
+          <h2>তথ্য</h2>
+  
+          <form onSubmit={saveProfile} className="account-profile-form">
+            <label htmlFor="profile-name">নাম</label>
+  
+            <input
+              id="profile-name"
+              type="text"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              minLength={2}
+              maxLength={100}
+              autoComplete="name"
+              placeholder="আপনার নাম লিখুন"
+              required
+              disabled={busy}
+            />
+  
+            {message && (
+              <p
+                className={`account-profile-message ${messageType}`}
+                role="status"
+                aria-live="polite"
+              >
+                {message}
+              </p>
+            )}
+  
+            <button
+              className="account-profile-update-button"
+              type="submit"
+              disabled={busy}
             >
-              {message}
-            </p>
-          )}
-
-          <button
+              <Save size={17} />
+              {busy ? "আপডেট হচ্ছে..." : "আপডেট"}
+            </button>
+          </form>
+        </section>
+      ) : (
+        <section className="account-information-card">
+          <h2>অ্যাকাউন্ট সেটিংস</h2>
+          <p>আপনার নাম পরিবর্তন করতে নিচের বাটনে ক্লিক করুন।</p>
+          <Link
+            href="/profile/update"
             className="account-profile-update-button"
-            type="submit"
-            disabled={busy}
           >
             <Save size={17} />
-            {busy ? "আপডেট হচ্ছে..." : "আপডেট"}
-          </button>
-        </form>
-      </section>
+            প্রোফাইল আপডেট করুন
+          </Link>
+        </section>
+      )}
     </div>
   );
 }

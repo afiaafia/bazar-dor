@@ -38,6 +38,7 @@ export default async function ProfilePage() {
             initialName={session.user.name || ""}
             email={session.user.email || ""}
             image={session.user.image || null}
+            mode="overview"
           />
         </div>
       </main>

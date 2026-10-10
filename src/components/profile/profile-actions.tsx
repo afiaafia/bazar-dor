@@ -133,10 +133,10 @@ export function ProfileActions({
       {mode === "edit" ? (
         <section className="account-information-card">
           <h2>তথ্য</h2>
-  
+
           <form onSubmit={saveProfile} className="account-profile-form">
             <label htmlFor="profile-name">নাম</label>
-  
+
             <input
               id="profile-name"
               type="text"
@@ -149,7 +149,7 @@ export function ProfileActions({
               required
               disabled={busy}
             />
-  
+
             {message && (
               <p
                 className={`account-profile-message ${messageType}`}
@@ -159,7 +159,7 @@ export function ProfileActions({
                 {message}
               </p>
             )}
-  
+
             <button
               className="account-profile-update-button"
               type="submit"

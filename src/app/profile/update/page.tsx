@@ -43,11 +43,11 @@ export default async function UpdateProfilePage() {
               মাধ্যমে সংরক্ষিত হবে।
             </p>
             <ProfileActions
-            initialName={session.user.name || ""}
-            email={session.user.email || ""}
-            image={session.user.image || null}
-            mode="edit"
-          />
+              initialName={session.user.name || ""}
+              email={session.user.email || ""}
+              image={session.user.image || null}
+              mode="edit"
+            />
           </section>
         </div>
       </main>

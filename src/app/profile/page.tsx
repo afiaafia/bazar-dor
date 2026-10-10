@@ -46,15 +46,7 @@ export default async function ProfilePage() {
         </div>
       </main>
 
-      <footer className="account-profile-footer">
-        <div>
-          <span>বাজার দর</span>
-          <p>প্রয়োজনীয় পণ্যের দাম এক নজরে।</p>
-        </div>
-        <p className="account-profile-footer-note">
-          সকল দাম সম্ভাব্য; বাজার অবস্থার ওপর নির্ভর করে পরিবর্তিত হয়।
-        </p>
-      </footer>
+
     </>
   );
 }

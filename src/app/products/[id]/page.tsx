@@ -49,7 +49,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
   if (!session) {
     redirect(
-      `/signin?reason=auth-required&callbackURL=${encodeURIComponent(`/products/${id}`)}`,
+      `/signin?reason=auth-required&callbackURL=${encodeURIComponent(`/product/${id}`)}`,
     );
   }
 

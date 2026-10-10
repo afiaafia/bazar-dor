@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AuthForm } from "@/components/auth/auth-form";
-import { AuthFooter } from "@/components/layout/auth-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 
 export const instant = false;
@@ -29,7 +28,6 @@ export default function SignUpPage() {
           }}
         />
       </main>
-      <AuthFooter />
     </>
   );
 }

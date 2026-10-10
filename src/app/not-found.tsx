@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { Home, SearchX } from "lucide-react";
+import { SiteHeader } from "@/components/layout/site-header";
 
 export default function NotFound() {
   return (
-    <main className="catalog-page">
+    <>
+      <SiteHeader />
+      <main className="catalog-page">
       <div className="catalog-container">
         <section className="catalog-state" role="status">
           <SearchX size={42} aria-hidden="true" />
@@ -16,6 +19,6 @@ export default function NotFound() {
           </Link>
         </section>
       </div>
-    </main>
-  );
+      </main>
+    </>
 }

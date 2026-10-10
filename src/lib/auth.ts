@@ -17,7 +17,16 @@ if (!authSecret || authSecret.length < 32) {
   throw new Error("BETTER_AUTH_SECRET is missing or too short in .env.local");
 }
 
-const mongoClient = new MongoClient(mongoUri);
+// Reuse the MongoDB client across Next.js module reloads.
+const globalForMongo = globalThis as typeof globalThis & {
+  bazarDorMongoClient?: MongoClient;
+};
+
+const mongoClient =
+  globalForMongo.bazarDorMongoClient ?? new MongoClient(mongoUri);
+
+globalForMongo.bazarDorMongoClient = mongoClient;
+
 const database = mongoClient.db();
 
 const socialProviders = {

@@ -43,6 +43,19 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function ProductDetailPage({ params }: PageProps) {
   const { id } = await params;
 
+  let product: Product | null = null;
+  let relatedProducts: Product[] = [];
+  let apiFailed = false;
+
+  // Check whether the product exists before requiring a session.
+  try {
+    product = await getProductBySlug(id);
+  } catch {
+    apiFailed = true;
+  }
+
+  if (!product && !apiFailed) notFound();
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -53,22 +66,19 @@ export default async function ProductDetailPage({ params }: PageProps) {
     );
   }
 
-  let product: Product | null = null;
-  let relatedProducts: Product[] = [];
-  let apiFailed = false;
-
-  try {
-    product = await getProductBySlug(id);
-    if (product) {
+  if (product) {
+    try {
       relatedProducts = (await getProducts())
-        .filter((item) => item.id !== product!.id && item.category === product!.category)
+        .filter(
+          (item) =>
+            item.id !== product!.id &&
+            item.category === product!.category,
+        )
         .slice(0, 4);
+    } catch {
+      // Related products are optional; preserve the main product page.
     }
-  } catch {
-    apiFailed = true;
   }
-
-  if (!product && !apiFailed) notFound();
 
   if (!product) {
     return (

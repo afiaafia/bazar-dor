@@ -32,7 +32,7 @@ export function SiteFooter() {
       </div>
 
       <div className="site-container footer-bottom">
-        <span>© {new Date().getFullYear()} বাজার দর</span>
+        <span>© ২০২৬ বাজার দর</span>
         <span>বাংলাদেশের নিত্যদিনের বাজার সহকারী</span>
       </div>
     </footer>

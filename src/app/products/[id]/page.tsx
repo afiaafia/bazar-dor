@@ -158,7 +158,22 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 {product.categoryNameBn || visual.name}
               </Link>
               <h1>{product.nameBn}</h1>
-              <p className="product-detail-unit">প্রতি {formatUnit(product.unit)}</p>
+
+              <p className="product-detail-description">
+                আজকের {product.categoryNameBn || visual.name} বাজারদর দেখুন।
+                নিচে বর্তমান মূল্য, আগের সময়ের দামের পরিবর্তন এবং বিভিন্ন
+                বাজারের সর্বনিম্ন ও সর্বোচ্চ দামের তুলনা দেওয়া হয়েছে।
+              </p>
+
+              <div className="product-detail-tags" aria-label="পণ্যের ক্যাটাগরি ও একক">
+                <span className="product-detail-tag">
+                  <span aria-hidden="true">{visual.emoji}</span>
+                  {product.categoryNameBn || visual.name}
+                </span>
+                <span className="product-detail-tag">
+                  প্রতি {formatUnit(product.unit)}
+                </span>
+              </div>
 
               <span className="product-detail-price-label">আজকের দাম</span>
               <div className="product-detail-price-row">

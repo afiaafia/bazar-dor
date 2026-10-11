@@ -4,12 +4,14 @@ const PRIMARY_API_URL =
   process.env.BAZAR_DOR_API_URL ??
   "https://api.api-store.workers.dev/api/bazardor";
 
-const FALLBACK_API_URL =
-  "https://api.abcz.workers.dev/api/bazardor";
+const FALLBACK_API_URLS = [
+  "https://api.api-store.workers.dev/api/bazardor",
+  "https://api.abcz.workers.dev/api/bazardor",
+];
 
 async function fetchApi<T>(path: string): Promise<T> {
   const apiUrls = [
-    ...new Set([PRIMARY_API_URL, FALLBACK_API_URL]),
+    ...new Set([PRIMARY_API_URL, ...FALLBACK_API_URLS]),
   ];
 
   let lastError: Error | null = null;

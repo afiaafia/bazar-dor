@@ -10,272 +10,7 @@ import { formatTaka, formatUnit } from "@/lib/format";
 import { getProducts } from "@/lib/api";
 import type { Product } from "@/types/product";
 
-const ALL_PRODUCT_DISPLAY_ITEMS = [
-  {
-    "name": "স্বর্ণমাছি চাল",
-    "unit": "প্রতি কেজি",
-    "price": "১৪৮",
-    "direction": "up",
-    "percentage": "২.৪",
-    "emoji": "🍚"
-  },
-  {
-    "name": "মিনিকেট চাল",
-    "unit": "প্রতি কেজি",
-    "price": "৯৯",
-    "direction": "down",
-    "percentage": "১.১",
-    "emoji": "🍚"
-  },
-  {
-    "name": "নাজির চাল",
-    "unit": "প্রতি কেজি",
-    "price": "৭৪",
-    "direction": "flat",
-    "percentage": "০.০",
-    "emoji": "🍚"
-  },
-  {
-    "name": "বাটাম সাইজ চাল",
-    "unit": "প্রতি কেজি",
-    "price": "৬৬",
-    "direction": "up",
-    "percentage": "২.৪",
-    "emoji": "🍚"
-  },
-  {
-    "name": "মসুর ডাল",
-    "unit": "প্রতি কেজি",
-    "price": "১৪২",
-    "direction": "up",
-    "percentage": "১.১",
-    "emoji": "🫘"
-  },
-  {
-    "name": "মুগ ডাল",
-    "unit": "প্রতি কেজি",
-    "price": "১৩২",
-    "direction": "flat",
-    "percentage": "০.০",
-    "emoji": "🫘"
-  },
-  {
-    "name": "ছোলা",
-    "unit": "প্রতি কেজি",
-    "price": "১২০",
-    "direction": "down",
-    "percentage": "১.৪",
-    "emoji": "🫘"
-  },
-  {
-    "name": "আমোন ডাল (খোলাসিলা)",
-    "unit": "প্রতি কেজি",
-    "price": "১৪৬",
-    "direction": "up",
-    "percentage": "১.৬",
-    "emoji": "🫘"
-  },
-  {
-    "name": "সরিষার তেল",
-    "unit": "প্রতি লিটার",
-    "price": "১৯২",
-    "direction": "up",
-    "percentage": "১.৬",
-    "emoji": "🍼"
-  },
-  {
-    "name": "পাম তেল",
-    "unit": "প্রতি কেজি",
-    "price": "১৬৮",
-    "direction": "down",
-    "percentage": "১.০",
-    "emoji": "🥫"
-  },
-  {
-    "name": "ঘানি ভাঙা সরিষার তেল",
-    "unit": "প্রতি লিটার",
-    "price": "২১২",
-    "direction": "up",
-    "percentage": "১.৪",
-    "emoji": "🍼"
-  },
-  {
-    "name": "আলু",
-    "unit": "প্রতি কেজি",
-    "price": "৬০",
-    "direction": "down",
-    "percentage": "৩.১",
-    "emoji": "🥔"
-  },
-  {
-    "name": "পেঁয়াজ",
-    "unit": "প্রতি কেজি",
-    "price": "৫৪",
-    "direction": "up",
-    "percentage": "২১.৫",
-    "emoji": "🧅"
-  },
-  {
-    "name": "কাঁচামরিচ",
-    "unit": "প্রতি কেজি",
-    "price": "৯২",
-    "direction": "down",
-    "percentage": "৭১.৪",
-    "emoji": "🌶️"
-  },
-  {
-    "name": "বেগুন",
-    "unit": "প্রতি কেজি",
-    "price": "৪৪",
-    "direction": "up",
-    "percentage": "৪.১",
-    "emoji": "🍆"
-  },
-  {
-    "name": "ঢেঁড়স",
-    "unit": "প্রতি কেজি",
-    "price": "৩৮",
-    "direction": "flat",
-    "percentage": "০.০",
-    "emoji": "🟢"
-  },
-  {
-    "name": "রুই মাছ",
-    "unit": "প্রতি কেজি",
-    "price": "৪৬",
-    "direction": "up",
-    "percentage": "৪.৫",
-    "emoji": "🐟"
-  },
-  {
-    "name": "তেলাপিয়া",
-    "unit": "প্রতি কেজি",
-    "price": "৩৬",
-    "direction": "flat",
-    "percentage": "০.০",
-    "emoji": "🐟"
-  },
-  {
-    "name": "ইলিশ মাছ",
-    "unit": "প্রতি কেজি",
-    "price": "১,৮৫০",
-    "direction": "up",
-    "percentage": "৩.৪",
-    "emoji": "🐠"
-  },
-  {
-    "name": "কাতলা মাছ",
-    "unit": "প্রতি কেজি",
-    "price": "৪৩",
-    "direction": "down",
-    "percentage": "৩.৪",
-    "emoji": "🐠"
-  },
-  {
-    "name": "চিংড়ি মাছ (খোলা)",
-    "unit": "প্রতি কেজি",
-    "price": "৬৩০",
-    "direction": "up",
-    "percentage": "৩.৭",
-    "emoji": "🦐"
-  },
-  {
-    "name": "মুরগির মাংস",
-    "unit": "প্রতি কেজি",
-    "price": "২২৫",
-    "direction": "down",
-    "percentage": "২.০",
-    "emoji": "🍗"
-  },
-  {
-    "name": "গরুর মাংস",
-    "unit": "প্রতি কেজি",
-    "price": "৭৯০",
-    "direction": "down",
-    "percentage": "১.২",
-    "emoji": "🥩"
-  },
-  {
-    "name": "খাসির মাংস",
-    "unit": "প্রতি কেজি",
-    "price": "১,২৯০",
-    "direction": "down",
-    "percentage": "৩.০",
-    "emoji": "🍖"
-  },
-  {
-    "name": "হাঁসের মাংস",
-    "unit": "প্রতি কেজি",
-    "price": "২৮৫",
-    "direction": "down",
-    "percentage": "৩.৪",
-    "emoji": "🦆"
-  },
-  {
-    "name": "ডিম",
-    "unit": "প্রতি ডজন",
-    "price": "১৫৮",
-    "direction": "up",
-    "percentage": "৩.৯",
-    "emoji": "🥚"
-  },
-  {
-    "name": "দুধ",
-    "unit": "প্রতি লিটার",
-    "price": "১০২",
-    "direction": "up",
-    "percentage": "২.০",
-    "emoji": "🥛"
-  },
-  {
-    "name": "দই",
-    "unit": "প্রতি লিটার",
-    "price": "৯২",
-    "direction": "flat",
-    "percentage": "০.০",
-    "emoji": "🥣"
-  },
-  {
-    "name": "মাখন (৫০০ গ্রাম)",
-    "unit": "প্রতি পিস",
-    "price": "১৪৫",
-    "direction": "up",
-    "percentage": "৩.৬",
-    "emoji": "🧈"
-  },
-  {
-    "name": "আদা",
-    "unit": "প্রতি কেজি",
-    "price": "৮৫",
-    "direction": "up",
-    "percentage": "৯.০",
-    "emoji": "🫚"
-  },
-  {
-    "name": "রসুন",
-    "unit": "প্রতি কেজি",
-    "price": "১২৫",
-    "direction": "down",
-    "percentage": "৭.১",
-    "emoji": "🧄"
-  },
-  {
-    "name": "মরিচ গুঁড়া",
-    "unit": "প্রতি কেজি",
-    "price": "২৪৫",
-    "direction": "down",
-    "percentage": "২.০",
-    "emoji": "🌶️"
-  },
-  {
-    "name": "ধনেপাতা গুঁড়া",
-    "unit": "প্রতি কেজি",
-    "price": "২৩৫",
-    "direction": "flat",
-    "percentage": "০.০",
-    "emoji": "🌿"
-  }
-];
+
 
 function SectionHeading({
   eyebrow,
@@ -526,45 +261,68 @@ export default async function Home() {
           <div className="site-container">
             <div className="all-products-heading">
               <h2>সব পণ্যের দাম</h2>
-              <p>মোট ৩৩ টি পণ্য</p>
+              <p>মোট {products.length.toLocaleString("bn-BD")} টি পণ্য দেখানো হচ্ছে</p>
             </div>
 
-            <div className="all-products-grid">
-              {ALL_PRODUCT_DISPLAY_ITEMS.map((product) => (
-                <article className="all-product-card" key={product.name}>
-                  <div className="all-product-first-row">
-                    <span className="all-product-emoji" aria-hidden="true">
-                      {product.emoji}
-                    </span>
-                    <div className="all-product-identity">
-                      <h3>{product.name}</h3>
-                      <p>{product.unit}</p>
-                    </div>
-                  </div>
+            {products.length > 0 ? (
+              <div className="all-products-grid">
+                {products.map((product) => {
+                  const direction =
+                    product.change?.dir === "up"
+                      ? "up"
+                      : product.change?.dir === "down"
+                        ? "down"
+                        : "flat";
 
-                  <div className="all-product-price-label">আজকের দাম</div>
+                  const percentage = Math.abs(product.change?.pct ?? 0);
+                  const changeLabel =
+                    direction === "up"
+                      ? `▲${percentage}%`
+                      : direction === "down"
+                        ? `▼${percentage}%`
+                        : `—${percentage}%`;
 
-                  <div className="all-product-last-row">
-                    <strong className="all-product-price">
-                      {product.price} টাকা
-                    </strong>
-                    <span
-                      className={`all-product-change ${product.direction}`}
-                      aria-label={
-                        product.direction === "up"
-                          ? `দাম বেড়েছে ${product.percentage} শতাংশ`
-                          : product.direction === "down"
-                            ? `দাম কমেছে ${product.percentage} শতাংশ`
-                            : "দাম অপরিবর্তিত ০.০ শতাংশ"
-                      }
+                  return (
+                    <Link
+                      key={product.id}
+                      href={`/product/${product.slug || product.id}`}
+                      className="all-product-card"
                     >
-                      {product.direction === "up" ? "▲" : product.direction === "down" ? "▼" : "—"}
-                      {product.percentage}%
-                    </span>
-                  </div>
-                </article>
-              ))}
-            </div>
+                      <div className="all-product-first-row">
+                        <span className="all-product-emoji" aria-hidden="true">
+                          {product.categoryIcon || "🛒"}
+                        </span>
+                        <div className="all-product-identity">
+                          <h3>{product.nameBn}</h3>
+                          <p>{formatUnit(product.unit)}</p>
+                        </div>
+                      </div>
+
+                      <div className="all-product-price-label">আজকের দাম</div>
+
+                      <div className="all-product-last-row">
+                        <strong className="all-product-price">
+                          {formatTaka(product.today)} টাকা
+                        </strong>
+                        <span
+                          className={`all-product-change ${direction}`}
+                          aria-label={`দামের পরিবর্তন ${percentage} শতাংশ`}
+                        >
+                          {changeLabel}
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="trend-empty">
+                {apiError
+                  ? "পণ্যের তথ্য লোড করা যায়নি। কিছুক্ষণ পর আবার চেষ্টা করুন।"
+                  : "এখন কোনো পণ্যের তথ্য পাওয়া যায়নি।"}
+              </p>
+            )}
+
           </div>
         </section>
 

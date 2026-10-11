@@ -5,14 +5,14 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteDate } from "@/components/layout/site-date";
-import { formatTaka, formatUnit } from "@/lib/format";
+import { ProductCard } from "@/components/products/product-card";
 
 import { getProducts } from "@/lib/api";
 import type { Product } from "@/types/product";
 
 const ALL_PRODUCT_DISPLAY_ITEMS = [
   {
-    "name": "স্বর্ণমাছি চাল",
+    "name": "স্বর্ণা/স্বর্ণা২ চাল",
     "unit": "প্রতি কেজি",
     "price": "১৪৮",
     "direction": "up",
@@ -36,7 +36,7 @@ const ALL_PRODUCT_DISPLAY_ITEMS = [
     "emoji": "🍚"
   },
   {
-    "name": "বাটাম সাইজ চাল",
+    "name": "বাটার সাইজ চাল",
     "unit": "প্রতি কেজি",
     "price": "৬৬",
     "direction": "up",
@@ -68,7 +68,7 @@ const ALL_PRODUCT_DISPLAY_ITEMS = [
     "emoji": "🫘"
   },
   {
-    "name": "আমোন ডাল (খোলাসিলা)",
+    "name": "অ্যাংকর ডাল (খোসামুক্ত)",
     "unit": "প্রতি কেজি",
     "price": "১৪৬",
     "direction": "up",
@@ -132,7 +132,7 @@ const ALL_PRODUCT_DISPLAY_ITEMS = [
     "emoji": "🍆"
   },
   {
-    "name": "ঢেঁড়স",
+    "name": "পটল",
     "unit": "প্রতি কেজি",
     "price": "৩৮",
     "direction": "flat",
@@ -172,7 +172,7 @@ const ALL_PRODUCT_DISPLAY_ITEMS = [
     "emoji": "🐠"
   },
   {
-    "name": "চিংড়ি মাছ (খোলা)",
+    "name": "চিংড়ি মাছ (খোসা)",
     "unit": "প্রতি কেজি",
     "price": "৬৩০",
     "direction": "up",
@@ -236,7 +236,7 @@ const ALL_PRODUCT_DISPLAY_ITEMS = [
     "emoji": "🥣"
   },
   {
-    "name": "মাখন (৫০০ গ্রাম)",
+    "name": "মাখন (১০০ গ্রাম)",
     "unit": "প্রতি পিস",
     "price": "১৪৫",
     "direction": "up",
@@ -260,7 +260,7 @@ const ALL_PRODUCT_DISPLAY_ITEMS = [
     "emoji": "🧄"
   },
   {
-    "name": "মরিচ গুঁড়া",
+    "name": "শুকনো মরিচ",
     "unit": "প্রতি কেজি",
     "price": "২৪৫",
     "direction": "down",
@@ -268,7 +268,7 @@ const ALL_PRODUCT_DISPLAY_ITEMS = [
     "emoji": "🌶️"
   },
   {
-    "name": "ধনেপাতা গুঁড়া",
+    "name": "ধনেপাতা/ধনে গুঁড়া",
     "unit": "প্রতি কেজি",
     "price": "২৩৫",
     "direction": "flat",
@@ -330,55 +330,10 @@ function ProductGrid({
   }
 
   return (
-    <div className="all-products-grid trend-products-grid">
-      {products.map((product) => {
-        const direction =
-          product.change?.dir === "up"
-            ? "up"
-            : product.change?.dir === "down"
-              ? "down"
-              : "flat";
-
-        const percentage = Math.abs(product.change?.pct ?? 0);
-        const changeLabel =
-          direction === "up"
-            ? `▲${percentage}%`
-            : direction === "down"
-              ? `▼${percentage}%`
-              : `—${percentage}%`;
-
-        return (
-          <Link
-            key={product.id}
-            href={`/product/${product.slug || product.id}`}
-            className="all-product-card trend-product-card"
-          >
-            <div className="all-product-first-row">
-              <span className="all-product-emoji" aria-hidden="true">
-                {product.categoryIcon || "🛒"}
-              </span>
-              <div className="all-product-identity">
-                <h3>{product.nameBn}</h3>
-                <p>{formatUnit(product.unit)}</p>
-              </div>
-            </div>
-
-            <div className="all-product-price-label">আজকের দাম</div>
-
-            <div className="all-product-last-row">
-              <strong className="all-product-price">
-                {formatTaka(product.today)} টাকা
-              </strong>
-              <span
-                className={`all-product-change ${direction}`}
-                aria-label={`দামের পরিবর্তন ${percentage} শতাংশ`}
-              >
-                {changeLabel}
-              </span>
-            </div>
-          </Link>
-        );
-      })}
+    <div className="product-grid">
+      {products.map((product, index) => (
+        <ProductCard key={product.id} product={product} rank={index + 1} />
+      ))}
     </div>
   );
 }

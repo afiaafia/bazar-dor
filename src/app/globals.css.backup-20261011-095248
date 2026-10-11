@@ -6584,9 +6584,10 @@ body {
   background-color: #FAFAF8;
 }
 
+
 /* BAZAR DOR: TREND CARDS MATCH ALL PRODUCTS */
 
-/* One continuous background across the homepage content */
+/* One continuous homepage background */
 .price-rise-section,
 #আজ-দাম-কমেছে,
 .all-products-list-section {
@@ -6594,11 +6595,11 @@ body {
   background-image: none !important;
 }
 
-/* Keep section spacing and content width consistent */
+/* Match the all-products section width and vertical rhythm */
 .price-rise-section,
 #আজ-দাম-কমেছে {
   padding-top: 44px;
-  padding-bottom: 44px;
+  padding-bottom: 52px;
 }
 
 .price-rise-section .site-container,
@@ -6609,135 +6610,105 @@ body {
 
 .price-rise-section .section-heading,
 #আজ-দাম-কমেছে .section-heading {
-  margin-bottom: 24px;
+  margin-bottom: 26px;
 }
 
-.price-rise-section .section-heading h2,
-#আজ-দাম-কমেছে .section-heading h2 {
-  margin: 0;
-  color: #1A1A1A;
-  font-size: clamp(24px, 3vw, 32px);
-  font-weight: 800;
-  line-height: 1.4;
-}
-
-/* Same three-column responsive layout as the 33-product list */
+/* Match the same responsive card grid */
 .price-rise-section .product-grid,
 #আজ-দাম-কমেছে .product-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  width: 100%;
+  gap: 20px;
   align-items: stretch;
 }
 
-/* Match .all-product-card */
+/* Match all-products card surfaces and sizing */
 .price-rise-section .product-card,
 #আজ-দাম-কমেছে .product-card {
-  display: flex;
   min-width: 0;
-  flex-direction: column;
-  gap: 14px;
+  height: 100%;
   overflow: hidden;
-  border: 1px solid #E5E8E2;
-  border-radius: 14px;
-  background: #FFFFFF;
-  box-shadow: 0 2px 8px rgb(26 26 26 / 4%);
-  transition: border-color 180ms ease, box-shadow 180ms ease,
-    transform 180ms ease;
+  border: 1px solid rgba(26, 26, 26, 0.07);
+  border-radius: 15px;
+  background: #FAFAF8;
+  box-shadow: 0 3px 12px rgba(26, 26, 26, 0.035);
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-.price-rise-section .product-card:hover,
-#আজ-দাম-কমেছে .product-card:hover {
-  transform: translateY(-2px);
-  border-color: #CDD8CA;
-  box-shadow: 0 8px 22px rgb(26 26 26 / 6%);
-}
-
-/* Match the 48px emoji and 17px card padding */
 .price-rise-section .product-card-link,
 #আজ-দাম-কমেছে .product-card-link {
   display: flex;
-  min-width: 0;
-  min-height: 0;
-  height: 100%;
   flex-direction: column;
-  padding: 17px;
+  height: 100%;
+  min-height: 230px;
+  padding: 20px;
 }
 
 .price-rise-section .product-card-top,
 #আজ-দাম-কমেছে .product-card-top {
   display: flex;
-  min-width: 0;
-  min-height: 60px;
-  align-items: center;
-  gap: 12px;
-  margin: 0;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
 }
 
 .price-rise-section .product-visual,
 #আজ-দাম-কমেছে .product-visual {
-  display: grid;
-  width: 48px;
-  height: 48px;
-  flex: 0 0 48px;
-  place-items: center;
-  border-radius: 12px;
-  background: #F0F2ED;
+  width: 66px;
+  height: 66px;
+  flex: 0 0 66px;
+  border-radius: 50%;
+  background: #EDEFEA;
 }
 
 .price-rise-section .product-visual > span:first-child,
 #আজ-দাম-কমেছে .product-visual > span:first-child {
-  font-size: 27px;
+  font-size: 35px;
 }
 
 .price-rise-section .product-visual-orbit,
 #আজ-দাম-কমেছে .product-visual-orbit,
 .price-rise-section .product-category,
 #আজ-দাম-কমেছে .product-category {
-  display: none !important;
+  display: none;
 }
 
 .price-rise-section .product-card-info,
 #আজ-দাম-কমেছে .product-card-info {
   min-width: 0;
-  margin: 0;
+  margin-bottom: 22px;
 }
 
 .price-rise-section .product-name,
 #আজ-দাম-কমেছে .product-name {
   color: #1A1A1A;
-  font-size: 15px;
+  font-size: 19px;
   font-weight: 750;
-  line-height: 1.55;
-  overflow-wrap: anywhere;
+  line-height: 1.5;
 }
 
 .price-rise-section .product-unit,
 #আজ-দাম-কমেছে .product-unit {
   margin-top: 3px;
   color: #777B76;
-  font-size: 12px;
+  font-size: 13px;
 }
 
-/* Match the all-products price label and bottom row */
 .price-rise-section .product-card-bottom,
 #আজ-দাম-কমেছে .product-card-bottom {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
   margin-top: auto;
-  padding-top: 12px;
-  border-top: 1px solid #ECEEE9;
+  padding-top: 14px;
+  border-top: 1px solid #E8E9E5;
 }
 
 .price-rise-section .price-label,
 #আজ-দাম-কমেছে .price-label {
   display: block;
-  width: 100%;
-  margin: 0;
+  margin-bottom: 5px;
   color: #777B76;
   font-size: 12px;
 }
@@ -6745,43 +6716,37 @@ body {
 .price-rise-section .product-price,
 #আজ-দাম-কমেছে .product-price {
   color: #1A1A1A;
-  font-size: 19px;
+  font-size: clamp(21px, 2vw, 27px);
   font-weight: 800;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
+  line-height: 1.35;
 }
 
-/* Keep the change indicator beside the price, not over the emoji */
+/* Put percentage badges in the price row instead of overlaying the emoji */
 .price-rise-section .change-badge,
 #আজ-দাম-কমেছে .change-badge {
-  position: static !important;
+  position: static;
   display: inline-flex;
-  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 5px 8px;
-  border: 0;
+  flex: 0 0 auto;
+  gap: 3px;
+  padding: 6px 10px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 750;
   white-space: nowrap;
 }
 
 .price-rise-section .change-badge.up {
-  background: #FBE7E5;
-  color: #9B2424;
+  border: 1px solid #F2C8C5;
+  background: #FADBD8;
+  color: #8B0000;
 }
 
 #আজ-দাম-কমেছে .change-badge.down {
-  background: #E7F5E9;
-  color: #207343;
-}
-
-.price-rise-section .change-badge.flat,
-#আজ-দাম-কমেছে .change-badge.flat {
-  background: #EFF1ED;
-  color: #62685F;
+  border: 1px solid #B9E2C5;
+  background: #DDF3E4;
+  color: #176534;
 }
 
 .price-rise-section .trend-empty,
@@ -6793,6 +6758,7 @@ body {
   .price-rise-section .product-grid,
   #আজ-দাম-কমেছে .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
   }
 }
 
@@ -6811,12 +6777,18 @@ body {
   .price-rise-section .product-grid,
   #আজ-দাম-কমেছে .product-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 13px;
   }
 
   .price-rise-section .product-card-link,
   #আজ-দাম-কমেছে .product-card-link {
-    padding: 15px;
+    min-height: 0;
+    padding: 17px;
+  }
+
+  .price-rise-section .product-name,
+  #আজ-দাম-কমেছে .product-name {
+    font-size: 17px;
   }
 }
 
@@ -6830,21 +6802,4 @@ body {
   #আজ-দাম-কমেছে .product-card:hover {
     transform: none;
   }
-}
-
-\n
-/* Keep trend-card links visually identical to the all-products cards. */
-.trend-products-grid {
-  align-items: stretch;
-}
-
-.trend-section a.trend-product-card {
-  min-width: 0;
-  color: inherit;
-  text-decoration: none;
-}
-
-.trend-section a.trend-product-card:focus-visible {
-  outline: 2px solid #647b43;
-  outline-offset: 3px;
 }

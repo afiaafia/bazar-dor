@@ -5728,8 +5728,8 @@ body {
   width: 100%;
   margin-top: auto;
   padding: 20px 0;
-  background: #f1f5f2;
-  border-top: 1px solid #e0e7e2;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
   color: #647367;
 }
 
@@ -6847,4 +6847,111 @@ body {
 .trend-section a.trend-product-card:focus-visible {
   outline: 2px solid #647b43;
   outline-offset: 3px;
+}
+
+
+/* GLOBAL FOOTER WHITE BACKGROUND */
+html body footer.site-footer {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/* FINAL HOMEPAGE WIDTH ALIGNMENT */
+:root {
+  --bazar-section-max-width: 1200px;
+  --bazar-section-gutter: 20px;
+}
+
+main > .hero-section,
+main > .price-rise-section,
+main > #আজ-দাম-কমেছে,
+main > .all-products-list-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+main > .hero-section {
+  padding: 44px 0 !important;
+  background: var(--bazar-home-background, #F4F5F1) !important;
+  background-image: none !important;
+}
+
+main > .hero-section > .hero-inner,
+main > .price-rise-section > .site-container,
+main > #আজ-দাম-কমেছে > .site-container,
+main > .all-products-list-section > .site-container {
+  display: block;
+  width: calc(100% - 40px) !important;
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+}
+
+main > .hero-section > .hero-inner {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(270px, 370px) !important;
+  align-items: center !important;
+  gap: 32px !important;
+  padding: clamp(24px, 4vw, 42px) !important;
+  border: 1px solid #DFE9DC !important;
+  border-radius: 24px !important;
+  background: #FFFFFF !important;
+  background-image: none !important;
+  box-shadow: 0 8px 24px rgb(32 72 39 / 8%) !important;
+  overflow: hidden !important;
+}
+
+main > .price-rise-section,
+main > #আজ-দাম-কমেছে,
+main > .all-products-list-section {
+  background: var(--bazar-home-background, #F4F5F1) !important;
+  background-image: none !important;
+}
+
+@media (max-width: 760px) {
+  :root {
+    --bazar-section-gutter: 14px;
+  }
+
+  main > .hero-section {
+    padding: 28px 0 32px !important;
+  }
+
+  main > .hero-section > .hero-inner,
+  main > .price-rise-section > .site-container,
+  main > #আজ-দাম-কমেছে > .site-container,
+  main > .all-products-list-section > .site-container {
+    width: calc(100% - 28px) !important;
+  }
+
+  main > .hero-section > .hero-inner {
+    grid-template-columns: minmax(0, 1fr) !important;
+    padding: 24px !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  main > .hero-section > .hero-inner {
+    padding: 17px !important;
+    gap: 16px !important;
+  }
+}
+
+/* NAVBAR MAIN ROW: SLIGHTLY WIDER THAN HOMEPAGE SECTIONS */
+.site-header.figma-header > .site-container.header-container.header-main {
+  width: calc(100% - 40px) !important;
+  max-width: 1280px !important;
+  margin-inline: auto !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  .site-header.figma-header > .site-container.header-container.header-main {
+    width: calc(100% - 28px) !important;
+  }
 }

@@ -1328,6 +1328,7 @@ a:focus-visible {
   font-weight: 800;
   line-height: 1.65;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
 }
 

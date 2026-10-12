@@ -8087,3 +8087,27 @@ main > .all-products-list-section > .site-container {
 .all-products-list-section .all-products-heading p {
   white-space: normal;
 }
+
+/* Hero description: increase font size by 2px */
+.hero-section .hero-description {
+  font-size: 15px;
+}
+
+@media (max-width: 760px) {
+  .hero-section .hero-description {
+    font-size: 14px;
+  }
+}
+
+/* Final override: visibly larger hero description */
+.hero-section .hero-copy p.hero-description {
+  font-size: 18px !important;
+  line-height: 1.8 !important;
+}
+
+@media (max-width: 760px) {
+  .hero-section .hero-copy p.hero-description {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+  }
+}

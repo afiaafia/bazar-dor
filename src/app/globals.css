@@ -8068,3 +8068,22 @@ main > .all-products-list-section > .site-container {
     width: calc(100% - 28px);
   }
 }
+
+
+/* All-products heading: count directly below the title */
+.all-products-list-section .all-products-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.all-products-list-section .all-products-heading h2,
+.all-products-list-section .all-products-heading p {
+  text-align: left;
+}
+
+.all-products-list-section .all-products-heading p {
+  white-space: normal;
+}

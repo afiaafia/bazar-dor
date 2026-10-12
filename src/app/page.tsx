@@ -258,7 +258,7 @@ export default async function Home() {
         <section className="content-section products-section all-products-list-section" id="সব-পণ্য">
           <div className="site-container">
             <div className="all-products-heading">
-              <h2>সব পণ্যের দাম</h2>
+              <h2>সব পণ্য</h2>
               <p>মোট {products.length.toLocaleString("bn-BD")} টি পণ্য দেখানো হচ্ছে</p>
             </div>
 

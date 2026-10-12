@@ -34,7 +34,7 @@ export async function SiteHeader() {
   return (
     <>
       <header className="site-header figma-header">
-        <div className="site-container header-container header-main">
+        <div className="header-main mx-auto flex h-[69px] w-full max-w-[1120px] items-center justify-between px-4 lg:px-0">
           <Link href="/" className="brand" aria-label="বাজার দর হোম">
             <Image
               src="/images/logo-icon.png"

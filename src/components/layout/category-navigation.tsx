@@ -19,8 +19,8 @@ export function CategoryNavigation({
   const pathname = usePathname();
 
   return (
-    <nav className="bg-[#fafcfa]">
-      <div className="site-container header-container overflow-x-auto">
+    <nav className="border-b border-[#e1e8e179] bg-[#fafcfa]">
+      <div className="mx-auto w-full max-w-[1120px] overflow-x-auto px-4 lg:px-0">
         <div className="flex h-[48px] min-w-max items-center gap-2">
           {categories.map((category) => {
             const href = `/categories/${category.slug}`;

@@ -8076,3 +8076,21 @@ main > section.hero-section > .hero-inner {
     width: calc(100% - 28px) !important;
   }
 }
+
+
+/* FINAL CONSISTENT HOMEPAGE SECTION WIDTH */
+main > section > .site-container,
+main > section > .hero-inner {
+  width: calc(100% - 40px) !important;
+  max-width: 1000px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  main > section > .site-container,
+  main > section > .hero-inner {
+    width: calc(100% - 28px) !important;
+  }
+}

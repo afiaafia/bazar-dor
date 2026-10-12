@@ -159,14 +159,12 @@ export default async function Home() {
                 <SiteDate />
               </div>
 
-              <h1>
-                আজকের বাজারের দাম
-                <br />
-                <span>এক নজরে</span>
+              <h1 className="hero-title">
+                আজকের বাজারের দাম এক নজরে
               </h1>
 
               <p className="hero-description">
-                চাল · ডাল · তেল · সবজি · মাছ · মাংস · ডিম
+                চাল · ডাল · তেল · সবজি · মাছ · মাংস · ডিম ও মসলার দাম - বাজারভিত্তিক বিস্তারিত, গড়, সর্বনিম্ন-সর্বাধিক এবং দামের পরিবর্তন এক জায়গায়।
               </p>
 
               <div className="hero-actions">

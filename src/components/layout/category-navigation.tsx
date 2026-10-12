@@ -19,26 +19,33 @@ export function CategoryNavigation({
   const pathname = usePathname();
 
   return (
-    <nav
-      className="header-category-nav header-container"
-      aria-label="পণ্যের ক্যাটাগরি"
-    >
-      {categories.map((category) => {
-        const href = `/categories/${category.slug}`;
-        const isActive = pathname === href;
+    <nav className="bg-[#fafcfa]">
+      <div className="site-container header-container overflow-x-auto">
+        <div className="flex h-[48px] min-w-max items-center gap-2">
+          {categories.map((category) => {
+            const href = `/categories/${category.slug}`;
+            const isActive = pathname === href;
 
-        return (
-          <Link
-            key={category.slug}
-            href={href}
-            className={`header-category-link${isActive ? " header-category-link-active" : ""}`}
-            aria-current={isActive ? "page" : undefined}
-          >
-            <span aria-hidden="true">{category.emoji}</span>
-            <span>{category.name}</span>
-          </Link>
-        );
-      })}
+            return (
+              <Link
+                key={category.slug}
+                href={href}
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-[13px] font-medium whitespace-nowrap transition-all duration-300 ${
+                  isActive
+                    ? "bg-[#05893e] text-white"
+                    : "text-[#1d271f] hover:bg-[#edf8f0] hover:text-[#05893e]"
+                }`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <span className="text-sm" aria-hidden="true">
+                  {category.emoji}
+                </span>
+                <span>{category.name}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
     </nav>
   );
 }

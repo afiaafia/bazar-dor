@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Hind_Siliguri, Inter } from "next/font/google";
+import { Geist_Mono, Inter, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import ToastProvider from "@/components/layout/toast-provider";
 import { SiteFooter } from "@/components/layout/site-footer";
 
 
-const bengaliFont = Hind_Siliguri({
+const bengaliFont = Noto_Sans_Bengali({
   subsets: ["bengali", "latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-hind-siliguri",

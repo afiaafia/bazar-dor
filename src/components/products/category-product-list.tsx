@@ -1,11 +1,17 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronDown, ArrowUpDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { ProductCard } from "@/components/products/product-card";
 import type { Product } from "@/types/product";
 
 type SortOption = "default" | "price-asc" | "price-desc";
+
+const sortOptions: { value: SortOption; label: string }[] = [
+  { value: "default", label: "ডিফল্ট" },
+  { value: "price-asc", label: "দাম: কম থেকে বেশি" },
+  { value: "price-desc", label: "দাম: বেশি থেকে কম" },
+];
 
 interface CategoryProductListProps {
   products: Product[];
@@ -15,9 +21,9 @@ export function CategoryProductList({
   products,
 }: CategoryProductListProps) {
   const [sortOption, setSortOption] = useState<SortOption>("default");
+  const [isOpen, setIsOpen] = useState(false);
 
   const sortedProducts = useMemo(() => {
-    // Keep the original API order unchanged for the default option.
     const result = [...products];
 
     if (sortOption === "price-asc") {
@@ -29,45 +35,80 @@ export function CategoryProductList({
     return result;
   }, [products, sortOption]);
 
+  const selectedOption = sortOptions.find(
+    (option) => option.value === sortOption,
+  );
+  const totalProducts = products.length.toLocaleString("bn-BD");
+
   return (
-    <div className="category-products-wrapper">
-      <div className="category-sort-bar">
-        <div className="category-sort-caption">
-          <ArrowUpDown size={17} aria-hidden="true" />
-          <label htmlFor="category-product-sort">সাজান</label>
-        </div>
+    <>
+      <div className="fo-category-toolbar">
+        <p className="fo-category-product-count">
+          মোট {totalProducts}টি পণ্য দেখানো হচ্ছে
+        </p>
 
-        <div className="category-sort-control">
-          <select
-            id="category-product-sort"
-            value={sortOption}
-            onChange={(event) =>
-              setSortOption(event.target.value as SortOption)
-            }
-            aria-label="পণ্যের দাম অনুযায়ী সাজান"
+        <div className="fo-category-sort">
+          <span className="fo-category-sort-label">সাজান</span>
+
+          <button
+            type="button"
+            aria-haspopup="listbox"
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen((previous) => !previous)}
+            className="fo-category-sort-trigger"
           >
-            <option value="default">ডিফল্ট</option>
-            <option value="price-asc">দাম: কম থেকে বেশি</option>
-            <option value="price-desc">দাম: বেশি থেকে কম</option>
-          </select>
+            <span>{selectedOption?.label}</span>
+            <ChevronDown
+              size={15}
+              className={isOpen ? "fo-category-chevron-open" : ""}
+            />
+          </button>
 
-          <ChevronDown
-            className="category-sort-chevron"
-            size={17}
-            aria-hidden="true"
-          />
+          {isOpen && (
+            <>
+              <button
+                type="button"
+                aria-label="সাজানোর মেনু বন্ধ করুন"
+                className="fo-category-menu-backdrop"
+                onClick={() => setIsOpen(false)}
+              />
+              <div className="fo-category-sort-menu" role="listbox">
+                {sortOptions.map((option) => {
+                  const selected = option.value === sortOption;
+
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      role="option"
+                      aria-selected={selected}
+                      onClick={() => {
+                        setSortOption(option.value);
+                        setIsOpen(false);
+                      }}
+                      className={`fo-category-sort-option${
+                        selected ? " is-selected" : ""
+                      }`}
+                    >
+                      <span>{option.label}</span>
+                      {selected && <Check size={14} />}
+                    </button>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
       </div>
 
-      <div className="product-grid">
+      <div className="product-grid fo-category-grid">
         {sortedProducts.map((product, index) => (
           <ProductCard
             key={product.id}
             product={product}
-            rank={index + 1}
           />
         ))}
       </div>
-    </div>
+    </>
   );
 }

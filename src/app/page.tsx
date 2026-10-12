@@ -5,7 +5,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteDate } from "@/components/layout/site-date";
-import { formatTaka, formatUnit } from "@/lib/format";
+import { formatBengaliNumber, formatTaka, formatUnit } from "@/lib/format";
 
 import { getProducts } from "@/lib/api";
 import type { Product } from "@/types/product";
@@ -77,10 +77,10 @@ function ProductGrid({
         const percentage = Math.abs(product.change?.pct ?? 0);
         const changeLabel =
           direction === "up"
-            ? `▲${percentage}%`
+            ? `▲${formatBengaliNumber(percentage)}%`
             : direction === "down"
-              ? `▼${percentage}%`
-              : `—${percentage}%`;
+              ? `▼${formatBengaliNumber(percentage)}%`
+              : `—${formatBengaliNumber(percentage)}%`;
 
         return (
           <Link
@@ -277,10 +277,10 @@ export default async function Home() {
                   const percentage = Math.abs(product.change?.pct ?? 0);
                   const changeLabel =
                     direction === "up"
-                      ? `▲${percentage}%`
+                      ? `▲${formatBengaliNumber(percentage)}%`
                       : direction === "down"
-                        ? `▼${percentage}%`
-                        : `—${percentage}%`;
+                        ? `▼${formatBengaliNumber(percentage)}%`
+                        : `—${formatBengaliNumber(percentage)}%`;
 
                   return (
                     <Link

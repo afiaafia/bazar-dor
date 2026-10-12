@@ -164,7 +164,8 @@ export default async function Home() {
               </h1>
 
               <p className="hero-description">
-                চাল · ডাল · তেল · সবজি · মাছ · মাংস · ডিম ও মসলার দাম - বাজারভিত্তিক বিস্তারিত, গড়, সর্বনিম্ন-সর্বাধিক এবং দামের পরিবর্তন এক জায়গায়।
+                <span className="hero-description-first-line">চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার দাম - বাজারভিত্তিক বিস্তারিত, গড়, সর্বনিম্ন-</span>
+                <span className="hero-description-second-line">সর্বাধিক এবং দামের পরিবর্তন এক জায়গায়।</span>
               </p>
 
               <div className="hero-actions">
@@ -179,10 +180,11 @@ export default async function Home() {
                 <Image
                   src="/images/bazar-hero.png"
                   alt="নিত্যপ্রয়োজনীয় বাজারের পণ্য"
-                  fill
+                  width={285}
+                  height={263}
                   priority
-                  sizes="(max-width: 768px) 90vw, 380px"
-                  className="hero-image"
+                  sizes="(max-width: 639px) 250px, (max-width: 1023px) 280px, 285px"
+                  className="hero-image h-auto w-[250px] object-contain sm:w-[280px] lg:w-[285px]"
                 />
               </div>
             </div>

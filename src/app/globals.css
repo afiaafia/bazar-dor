@@ -8032,65 +8032,39 @@ html body .site-header.figma-header
 
 
 /* Narrow homepage content without changing navbar or footer */
+
+
+@media (max-width: 760px) {
+  
+}
+
+/* HOMEPAGE SECTION WIDTH — single source of truth */
+main > section > .site-container,
+main > section > .hero-inner,
+main > section.content-section > .site-container,
+main > section.hero-section > .hero-inner,
 main > .hero-section > .hero-inner,
 main > .price-rise-section > .site-container,
 main > #আজ-দাম-বেড়েছে > .site-container,
 main > #আজ-দাম-কমেছে > .site-container,
 main > .all-products-list-section > .site-container {
-  width: calc(100% - 48px) !important;
-  max-width: 1080px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  box-sizing: border-box !important;
+  width: calc(100% - 40px);
+  max-width: 1060px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
 
 @media (max-width: 760px) {
+  main > section > .site-container,
+  main > section > .hero-inner,
+  main > section.content-section > .site-container,
+  main > section.hero-section > .hero-inner,
   main > .hero-section > .hero-inner,
   main > .price-rise-section > .site-container,
   main > #আজ-দাম-বেড়েছে > .site-container,
   main > #আজ-দাম-কমেছে > .site-container,
   main > .all-products-list-section > .site-container {
-    width: calc(100% - 28px) !important;
-  }
-}
-
-
-/* Final override: narrower homepage sections only */
-main > section.content-section > .site-container {
-  width: calc(100% - 40px) !important;
-  max-width: 1000px !important;
-  margin-inline: auto !important;
-  box-sizing: border-box !important;
-}
-
-main > section.hero-section > .hero-inner {
-  width: calc(100% - 40px) !important;
-  max-width: 1000px !important;
-  margin-inline: auto !important;
-  box-sizing: border-box !important;
-}
-
-@media (max-width: 760px) {
-  main > section.content-section > .site-container,
-  main > section.hero-section > .hero-inner {
-    width: calc(100% - 28px) !important;
-  }
-}
-
-
-/* FINAL CONSISTENT HOMEPAGE SECTION WIDTH */
-main > section > .site-container,
-main > section > .hero-inner {
-  width: calc(100% - 40px) !important;
-  max-width: 1000px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  box-sizing: border-box !important;
-}
-
-@media (max-width: 760px) {
-  main > section > .site-container,
-  main > section > .hero-inner {
-    width: calc(100% - 28px) !important;
+    width: calc(100% - 28px);
   }
 }

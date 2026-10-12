@@ -59,7 +59,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
       <>
         <SiteHeader />
         <main className="min-h-[60vh] bg-[#f0f5f0] px-4 py-16">
-          <div className="mx-auto max-w-[1120px] rounded-2xl border border-[#e1e8e1] bg-white p-8 text-center">
+          <div className="mx-auto max-w-280 rounded-2xl border border-[#e1e8e1] bg-white p-8 text-center">
             <h1 className="text-xl font-bold text-[#1d271f]">পণ্যের তথ্য লোড করা যায়নি</h1>
             <p className="mt-2 text-sm text-[#6f776f]">ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।</p>
             <Link href="/categories" className="mt-5 inline-flex rounded-lg bg-[#05893e] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#047f39]">

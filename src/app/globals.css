@@ -8001,3 +8001,78 @@ html body .site-header.figma-header
     padding-inline: 16px !important;
   }
 }
+
+/* Increase hero date and label readability */
+.hero-section .hero-kicker {
+  gap: 10px;
+  padding: 11px 15px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.hero-section .hero-kicker-dot {
+  flex-basis: 9px;
+  width: 9px;
+  height: 9px;
+}
+
+@media (max-width: 760px) {
+  .hero-section .hero-kicker {
+    padding: 10px 13px;
+    font-size: 14px;
+  }
+}
+
+/* Slightly narrower content sections; keep navbar and footer unchanged */
+.content-section > .site-container {
+  width: min(100% - 32px, 1160px);
+  max-width: 1160px;
+  margin-inline: auto;
+}
+
+
+/* Narrow homepage content without changing navbar or footer */
+main > .hero-section > .hero-inner,
+main > .price-rise-section > .site-container,
+main > #আজ-দাম-বেড়েছে > .site-container,
+main > #আজ-দাম-কমেছে > .site-container,
+main > .all-products-list-section > .site-container {
+  width: calc(100% - 48px) !important;
+  max-width: 1080px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  main > .hero-section > .hero-inner,
+  main > .price-rise-section > .site-container,
+  main > #আজ-দাম-বেড়েছে > .site-container,
+  main > #আজ-দাম-কমেছে > .site-container,
+  main > .all-products-list-section > .site-container {
+    width: calc(100% - 28px) !important;
+  }
+}
+
+
+/* Final override: narrower homepage sections only */
+main > section.content-section > .site-container {
+  width: calc(100% - 40px) !important;
+  max-width: 1000px !important;
+  margin-inline: auto !important;
+  box-sizing: border-box !important;
+}
+
+main > section.hero-section > .hero-inner {
+  width: calc(100% - 40px) !important;
+  max-width: 1000px !important;
+  margin-inline: auto !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  main > section.content-section > .site-container,
+  main > section.hero-section > .hero-inner {
+    width: calc(100% - 28px) !important;
+  }
+}

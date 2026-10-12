@@ -11,7 +11,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product, rank }: ProductCardProps) {
   const visual = getCategoryVisual(product.category);
-  const productEmoji = getProductEmoji(product.nameBn, product.category);
+  const productEmoji = product.image || getProductEmoji(product.nameBn, product.category);
   const direction = product.change?.dir ?? "flat";
   const percentage = Math.abs(product.change?.pct ?? 0);
 

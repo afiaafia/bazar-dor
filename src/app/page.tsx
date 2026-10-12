@@ -90,7 +90,7 @@ function ProductGrid({
           >
             <div className="all-product-first-row">
               <span className="all-product-emoji" aria-hidden="true">
-                {product.categoryIcon || "🛒"}
+                {product.image || product.categoryIcon || "🛒"}
               </span>
               <div className="all-product-identity">
                 <h3>{product.nameBn}</h3>
@@ -290,7 +290,7 @@ export default async function Home() {
                     >
                       <div className="all-product-first-row">
                         <span className="all-product-emoji" aria-hidden="true">
-                          {product.categoryIcon || "🛒"}
+                          {product.image || product.categoryIcon || "🛒"}
                         </span>
                         <div className="all-product-identity">
                           <h3>{product.nameBn}</h3>

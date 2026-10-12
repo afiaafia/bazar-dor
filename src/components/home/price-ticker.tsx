@@ -35,7 +35,7 @@ export function PriceTicker({ products }: { products: Product[] }) {
                     key={`${copy}-${product.id}`}
                     tabIndex={copy === 1 ? -1 : undefined}
                   >
-                    <span aria-hidden="true">{visual.emoji}</span>
+                    <span aria-hidden="true">{product.image || visual.emoji}</span>
                     <span className="ticker-product">{product.nameBn}</span>
                     <strong>
                       {formatBengaliNumber(product.today)} টাকা/

@@ -6695,7 +6695,7 @@ main > .all-products-list-section {
 /* NAVBAR MAIN ROW: SLIGHTLY WIDER THAN HOMEPAGE SECTIONS */
 .site-header.figma-header > .site-container.header-container.header-main {
   width: calc(100% - 40px) !important;
-  max-width: 1280px !important;
+  max-width: 1360px !important;
   margin-inline: auto !important;
   box-sizing: border-box !important;
 }
@@ -7899,7 +7899,7 @@ span.price-direction-indicator.fall {
 /* Align category navigation with the brand row */
 .site-header.figma-header .header-category-row > nav > .site-container.header-container {
   width: calc(100% - 40px) !important;
-  max-width: 1280px !important;
+  max-width: 1360px !important;
   margin-inline: auto !important;
   box-sizing: border-box !important;
 }
@@ -7915,7 +7915,7 @@ span.price-direction-indicator.fall {
 /* Bazar Dor navigation: match Foysal's shared 1120px container layout. */
 .site-header.figma-header > .site-container.header-container.header-main {
   width: 100% !important;
-  max-width: 1120px !important;
+  max-width: 1360px !important;
   margin-inline: auto !important;
   padding-inline: 0 !important;
   box-sizing: border-box !important;
@@ -7938,7 +7938,7 @@ html body .site-header.figma-header
 .site-header.figma-header .header-category-row > nav
 > div.mx-auto.w-full.max-w-\[1120px\].overflow-x-auto {
   width: 100% !important;
-  max-width: 1120px !important;
+  max-width: 1360px !important;
   margin-inline: auto !important;
   box-sizing: border-box !important;
   transform: none !important;
@@ -7947,7 +7947,7 @@ html body .site-header.figma-header
 /* Reference-matched Bazar Dor header and category navigation. */
 .site-header.figma-header > .header-main {
   width: 100% !important;
-  max-width: 1120px !important;
+  max-width: 1360px !important;
   height: 69px !important;
   min-height: 69px !important;
   margin-inline: auto !important;
@@ -7972,7 +7972,7 @@ html body .site-header.figma-header
 .site-header.figma-header .header-category-row > nav
 > div.mx-auto.w-full.max-w-\[1120px\].overflow-x-auto {
   width: 100% !important;
-  max-width: 1120px !important;
+  max-width: 1360px !important;
   margin-inline: auto !important;
   padding-inline: 16px !important;
   box-sizing: border-box !important;

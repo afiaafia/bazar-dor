@@ -1,21 +1,9 @@
-export const instant = false;
-
 import Link from "next/link";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
-import {
-  ArrowDownRight,
-  ArrowLeft,
-  ArrowUpRight,
-  Minus,
-  MapPin,
-  TrendingUp,
-} from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
-import { ProductCard } from "@/components/products/product-card";
-import { getCategoryVisual } from "@/constants/categories";
-import { getProductBySlug, getProducts } from "@/lib/api";
-import { formatBengaliNumber, formatTaka, formatUnit } from "@/lib/format";
+import { ProductDetailContent } from "@/components/products/product-detail-content";
+import { getProductBySlug } from "@/lib/api";
 import type { Product } from "@/types/product";
 import { auth } from "@/lib/auth";
 
@@ -28,6 +16,7 @@ export async function generateMetadata({ params }: PageProps) {
 
   try {
     const product = await getProductBySlug(id);
+
     if (product) {
       return {
         title: `${product.nameBn} — বাজারদর`,
@@ -35,8 +24,9 @@ export async function generateMetadata({ params }: PageProps) {
       };
     }
   } catch {
-    // Metadata should not fail just because the API is temporarily unavailable.
+    // The detail page handles API failures separately.
   }
+
   return { title: "পণ্যের বিস্তারিত" };
 }
 
@@ -44,10 +34,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const { id } = await params;
 
   let product: Product | null = null;
-  let relatedProducts: Product[] = [];
   let apiFailed = false;
 
-  // Check whether the product exists before requiring a session.
   try {
     product = await getProductBySlug(id);
   } catch {
@@ -66,260 +54,27 @@ export default async function ProductDetailPage({ params }: PageProps) {
     );
   }
 
-  if (product) {
-    try {
-      relatedProducts = (await getProducts())
-        .filter(
-          (item) =>
-            item.id !== product!.id &&
-            item.category === product!.category,
-        )
-        .slice(0, 4);
-    } catch {
-      // Related products are optional; preserve the main product page.
-    }
-  }
-
   if (!product) {
     return (
       <>
         <SiteHeader />
-        <main className="catalog-page">
-          <div className="catalog-container">
-            <div className="catalog-state">
-              <h1>পণ্যের তথ্য পাওয়া যায়নি</h1>
-              <p>ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।</p>
-              <Link href="/categories" className="catalog-action-link">
-                সব পণ্য দেখুন
-              </Link>
-            </div>
+        <main className="min-h-[60vh] bg-[#f0f5f0] px-4 py-16">
+          <div className="mx-auto max-w-[1120px] rounded-2xl border border-[#e1e8e1] bg-white p-8 text-center">
+            <h1 className="text-xl font-bold text-[#1d271f]">পণ্যের তথ্য লোড করা যায়নি</h1>
+            <p className="mt-2 text-sm text-[#6f776f]">ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।</p>
+            <Link href="/categories" className="mt-5 inline-flex rounded-lg bg-[#05893e] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#047f39]">
+              সব পণ্য দেখুন
+            </Link>
           </div>
         </main>
       </>
     );
   }
 
-  const visual = getCategoryVisual(product.category);
-  const change = product.today - product.yesterday;
-  const direction = change > 0 ? "up" : change < 0 ? "down" : "flat";
-  const changeClass =
-    direction === "up" ? "price-up" : direction === "down" ? "price-down" : "price-flat";
-
-  const marketMin =
-    product.markets.length > 0
-      ? Math.min(...product.markets.map((market) => market.min))
-      : null;
-  const marketMax =
-    product.markets.length > 0
-      ? Math.max(...product.markets.map((market) => market.max))
-      : null;
-  const marketAverage =
-    product.markets.length > 0
-      ? product.markets.reduce(
-          (sum, market) => sum + (market.min + market.max) / 2,
-          0,
-        ) / product.markets.length
-      : null;
-
   return (
     <>
       <SiteHeader />
-      <main className="catalog-page">
-        <div className="catalog-container">
-          <nav className="breadcrumbs" aria-label="Breadcrumb">
-            <Link href="/">হোম</Link>
-            <span>/</span>
-            <Link href="/categories">ক্যাটাগরি</Link>
-            <span>/</span>
-            <Link href={`/categories/${product.category}`}>{product.categoryNameBn}</Link>
-            <span>/</span>
-            <span>{product.nameBn}</span>
-          </nav>
-
-          <Link href="/categories" className="catalog-back-link">
-            <ArrowLeft size={16} /> সব পণ্যে ফিরে যান
-          </Link>
-
-          <section className="product-detail-card">
-            <div className="product-detail-visual">
-              {product.image ? (
-                // The API supplies product image URLs; use a regular image to avoid
-                // requiring remote image host configuration.
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={product.image} alt={product.nameBn} />
-              ) : (
-                <span aria-hidden="true">{visual.emoji}</span>
-              )}
-            </div>
-
-            <div className="product-detail-copy">
-              <Link href={`/categories/${product.category}`} className="product-detail-category">
-                <span aria-hidden="true">{visual.emoji}</span>
-                {product.categoryNameBn || visual.name}
-              </Link>
-              <h1>{product.nameBn}</h1>
-
-              <p className="product-detail-description">
-                আজকের {product.categoryNameBn || visual.name} বাজারদর দেখুন।
-                নিচে বর্তমান মূল্য, আগের সময়ের দামের পরিবর্তন এবং বিভিন্ন
-                বাজারের সর্বনিম্ন ও সর্বোচ্চ দামের তুলনা দেওয়া হয়েছে।
-              </p>
-
-              <div className="product-detail-tags" aria-label="পণ্যের ক্যাটাগরি ও একক">
-                <span className="product-detail-tag">
-                  <span aria-hidden="true">{visual.emoji}</span>
-                  {product.categoryNameBn || visual.name}
-                </span>
-                <span className="product-detail-tag">
-                  প্রতি {formatUnit(product.unit)}
-                </span>
-              </div>
-
-              <span className="product-detail-price-label">আজকের দাম</span>
-              <div className="product-detail-price-row">
-                <strong>{formatTaka(product.today)}</strong>
-                <span className={`product-change-pill ${changeClass}`}>
-                  {direction === "up" ? (
-                    <ArrowUpRight size={16} />
-                  ) : direction === "down" ? (
-                    <ArrowDownRight size={16} />
-                  ) : (
-                    <Minus size={15} />
-                  )}
-                  {change > 0 ? "+" : change < 0 ? "−" : ""}
-                  {formatTaka(Math.abs(change))}
-                </span>
-              </div>
-              <p className="product-detail-caption">
-                গতকালের তুলনায় {direction === "up" ? "দাম বেড়েছে" : direction === "down" ? "দাম কমেছে" : "দাম অপরিবর্তিত"}।
-              </p>
-              <div className="product-detail-meta">
-                <span><MapPin size={15} /> বাজারভিত্তিক দামের তুলনা</span>
-                <span><TrendingUp size={15} /> পরিবর্তন: {formatBengaliNumber(product.change?.pct ?? 0)}%</span>
-              </div>
-            </div>
-          </section>
-
-          <section className="catalog-section">
-            <div className="catalog-section-heading">
-              <div>
-                <span className="catalog-eyebrow">বাজারদরের সারাংশ</span>
-                <h2>সর্বনিম্ন, সর্বোচ্চ ও গড় দাম</h2>
-                <p>API-তে পাওয়া বাজারগুলোর মূল্য থেকে হিসাব করা হয়েছে।</p>
-              </div>
-            </div>
-
-            <div className="price-comparison-grid">
-              <article className="price-comparison-card">
-                <span>সর্বনিম্ন দাম</span>
-                <strong>{marketMin === null ? "তথ্য নেই" : formatTaka(marketMin)}</strong>
-                <small>প্রতি {formatUnit(product.unit)}</small>
-              </article>
-              <article className="price-comparison-card">
-                <span>সর্বোচ্চ দাম</span>
-                <strong>{marketMax === null ? "তথ্য নেই" : formatTaka(marketMax)}</strong>
-                <small>প্রতি {formatUnit(product.unit)}</small>
-              </article>
-              <article className="price-comparison-card current">
-                <span>গড় দাম</span>
-                <strong>{marketAverage === null ? "তথ্য নেই" : formatTaka(marketAverage)}</strong>
-                <small>প্রতি {formatUnit(product.unit)}</small>
-              </article>
-            </div>
-          </section>
-
-          <section className="catalog-section">
-            <div className="catalog-section-heading">
-              <div>
-                <span className="catalog-eyebrow">দামের তুলনা</span>
-                <h2>বিভিন্ন সময়ের দাম</h2>
-                <p>API-তে সরবরাহ করা মূল্য-স্ন্যাপশটের তুলনা।</p>
-              </div>
-            </div>
-
-            <div className="price-comparison-grid">
-              <article className="price-comparison-card current">
-                <span>আজকের দাম</span>
-                <strong>{formatTaka(product.today)}</strong>
-                <small>প্রতি {formatUnit(product.unit)}</small>
-              </article>
-              <article className="price-comparison-card">
-                <span>গতকালের দাম</span>
-                <strong>{formatTaka(product.yesterday)}</strong>
-                <small>প্রতি {formatUnit(product.unit)}</small>
-              </article>
-              <article className="price-comparison-card">
-                <span>গত সপ্তাহের দাম</span>
-                <strong>{formatTaka(product.lastWeek)}</strong>
-                <small>প্রতি {formatUnit(product.unit)}</small>
-              </article>
-              <article className="price-comparison-card">
-                <span>গত মাসের দাম</span>
-                <strong>{formatTaka(product.lastMonth)}</strong>
-                <small>প্রতি {formatUnit(product.unit)}</small>
-              </article>
-            </div>
-          </section>
-
-          <section className="catalog-section">
-            <div className="catalog-section-heading">
-              <div>
-                <span className="catalog-eyebrow">বাজার অনুযায়ী</span>
-                <h2>বিভিন্ন বাজারে {product.nameBn}-এর দাম</h2>
-                <p>API-তে উপলব্ধ সর্বনিম্ন ও সর্বোচ্চ দামের তথ্য।</p>
-              </div>
-            </div>
-
-            {product.markets.length === 0 ? (
-              <div className="catalog-state">
-                <p>এই পণ্যের জন্য বাজারভিত্তিক মূল্য এখনো পাওয়া যায়নি।</p>
-              </div>
-            ) : (
-              <div className="market-table-wrap">
-                <table className="market-table">
-                  <thead>
-                    <tr>
-                      <th>বাজার</th>
-                      <th>বিভাগ</th>
-                      <th>সর্বনিম্ন দাম</th>
-                      <th>সর্বোচ্চ দাম</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {product.markets.map((market, index) => (
-                      <tr key={`${market.market}-${market.division}-${index}`}>
-                        <td>{market.market}</td>
-                        <td>{market.division}</td>
-                        <td>{formatTaka(market.min)}</td>
-                        <td>{formatTaka(market.max)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </section>
-
-          {relatedProducts.length > 0 && (
-            <section className="catalog-section">
-              <div className="catalog-section-heading">
-                <div>
-                  <span className="catalog-eyebrow">আরও পণ্য</span>
-                  <h2>একই ক্যাটাগরির পণ্য</h2>
-                </div>
-                <Link href={`/categories/${product.category}`} className="catalog-action-link">
-                  সব দেখুন
-                </Link>
-              </div>
-              <div className="product-grid">
-                {relatedProducts.map((item, index) => (
-                  <ProductCard key={item.id} product={item} rank={index + 1} />
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
-      </main>
+      <ProductDetailContent product={product} />
     </>
   );
 }

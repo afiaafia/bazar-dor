@@ -108,6 +108,7 @@ export function HeaderAuthActions({ user }: HeaderAuthActionsProps) {
             {initial || <UserRound size={19} />}
           </span>
         )}
+        <span className="header-profile-name">{displayName}</span>
       </Link>
 
       <button

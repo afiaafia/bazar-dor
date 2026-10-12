@@ -992,11 +992,11 @@ a:focus-visible {
 }
 
 .price-direction-indicator.rise {
-  color: #dc2626;
+  color: #E53935;
 }
 
 .price-direction-indicator.fall {
-  color: #16a34a;
+  color: #2EAD4A;
 }
 
 /* Price trends */
@@ -4636,47 +4636,72 @@ body {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 5px;
-}
-
-.header-profile-trigger {
-  display: inline-flex;
-  width: 38px;
-  height: 38px;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 1px solid #e6eee8;
-  border-radius: 50%;
-  background: #edf7ef;
-  text-decoration: none;
+  gap: 6px;
   flex-shrink: 0;
 }
 
-.header-profile-image {
+.header-actions.header-account a.header-profile-trigger {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: auto;
+  max-width: 220px;
+  height: 40px;
+  padding: 0 8px 0 4px;
+  overflow: visible;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background-color 180ms ease;
+}
+
+.header-actions.header-account a.header-profile-trigger:hover {
+  background: #f0f6f1;
+}
+
+.header-actions.header-account .header-profile-image,
+.header-actions.header-account .header-profile-avatar {
+  display: flex;
   width: 36px;
   height: 36px;
+  flex: 0 0 36px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 0;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.header-profile-avatar {
-  display: flex;
-  width: 36px;
-  height: 36px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+.header-actions.header-account .header-profile-avatar {
   background: #009f4b;
   color: #fff;
   font-size: 16px;
   font-weight: 700;
 }
 
+.header-actions.header-account .header-profile-name {
+  display: inline-block;
+  max-width: 130px;
+  min-width: 0;
+  overflow: hidden;
+  color: #25352b;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .header-account-toggle {
   display: inline-flex;
   width: 28px;
   height: 34px;
+  flex: 0 0 28px;
   align-items: center;
   justify-content: center;
   border: 0;
@@ -4772,336 +4797,32 @@ body {
   opacity: 0.65;
 }
 
-@media (max-width: 360px) {
-  .header-profile-trigger {
-    width: 33px;
-    height: 33px;
+@media (max-width: 640px) {
+  .header-actions.header-account .header-profile-name {
+    display: none;
   }
 
-  .header-profile-image,
-  .header-profile-avatar {
+  .header-actions.header-account a.header-profile-trigger {
+    gap: 0;
+    padding: 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .header-actions.header-account .header-profile-image,
+  .header-actions.header-account .header-profile-avatar {
     width: 31px;
     height: 31px;
+    flex-basis: 31px;
   }
 
   .header-account {
     gap: 2px;
   }
-}
 
-/* Authenticated account controls in the site header */
-.header-account {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.header-profile-trigger {
-  display: inline-flex;
-  width: 38px;
-  height: 38px;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 1px solid #e6eee8;
-  border-radius: 50%;
-  background: #edf7ef;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
-.header-profile-image {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.header-profile-avatar {
-  display: flex;
-  width: 36px;
-  height: 36px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #009f4b;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.header-account-toggle {
-  display: inline-flex;
-  width: 28px;
-  height: 34px;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  border-radius: 6px;
-  background: transparent;
-  color: #344238;
-  cursor: pointer;
-}
-
-.header-account-toggle:hover {
-  background: #f0f6f1;
-  color: #008b41;
-}
-
-.header-account-menu {
-  position: absolute;
-  z-index: 1000;
-  top: calc(100% + 10px);
-  right: 0;
-  width: min(290px, calc(100vw - 28px));
-  padding: 7px;
-  border: 1px solid #e7ede8;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 12px 35px rgb(20 40 25 / 13%);
-  color: #25352b;
-}
-
-.header-account-identity {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 5px;
-  padding: 12px 11px;
-}
-
-.header-account-identity strong {
-  overflow: hidden;
-  font-size: 13px;
-  font-weight: 700;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.header-account-identity span {
-  overflow: hidden;
-  color: #7b877e;
-  font-size: 11px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.header-account-divider {
-  height: 1px;
-  margin: 3px 0 5px;
-  background: #edf0ed;
-}
-
-.header-account-menu-item {
-  display: flex;
-  width: 100%;
-  min-height: 39px;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 11px;
-  border: 0;
-  border-radius: 7px;
-  background: transparent;
-  color: #344238;
-  font-family: inherit;
-  font-size: 12px;
-  text-align: left;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.header-account-menu-item:hover {
-  background: #f2f7f3;
-  color: #008b41;
-}
-
-.header-account-signout {
-  color: #c03939;
-}
-
-.header-account-signout:hover {
-  background: #fff1f1;
-  color: #b42323;
-}
-
-.header-account-signout:disabled {
-  cursor: wait;
-  opacity: 0.65;
-}
-
-@media (max-width: 360px) {
-  .header-profile-trigger {
-    width: 33px;
-    height: 33px;
-  }
-
-  .header-profile-image,
-  .header-profile-avatar {
-    width: 31px;
-    height: 31px;
-  }
-
-  .header-account {
-    gap: 2px;
-  }
-}
-
-/* Authenticated account controls in the site header */
-.header-account {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.header-profile-trigger {
-  display: inline-flex;
-  width: 38px;
-  height: 38px;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 1px solid #e6eee8;
-  border-radius: 50%;
-  background: #edf7ef;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
-.header-profile-image {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.header-profile-avatar {
-  display: flex;
-  width: 36px;
-  height: 36px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #009f4b;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.header-account-toggle {
-  display: inline-flex;
-  width: 28px;
-  height: 34px;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  border-radius: 6px;
-  background: transparent;
-  color: #344238;
-  cursor: pointer;
-}
-
-.header-account-toggle:hover {
-  background: #f0f6f1;
-  color: #008b41;
-}
-
-.header-account-menu {
-  position: absolute;
-  z-index: 1000;
-  top: calc(100% + 10px);
-  right: 0;
-  width: min(290px, calc(100vw - 28px));
-  padding: 7px;
-  border: 1px solid #e7ede8;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 12px 35px rgb(20 40 25 / 13%);
-  color: #25352b;
-}
-
-.header-account-identity {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 5px;
-  padding: 12px 11px;
-}
-
-.header-account-identity strong {
-  overflow: hidden;
-  font-size: 13px;
-  font-weight: 700;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.header-account-identity span {
-  overflow: hidden;
-  color: #7b877e;
-  font-size: 11px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.header-account-divider {
-  height: 1px;
-  margin: 3px 0 5px;
-  background: #edf0ed;
-}
-
-.header-account-menu-item {
-  display: flex;
-  width: 100%;
-  min-height: 39px;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 11px;
-  border: 0;
-  border-radius: 7px;
-  background: transparent;
-  color: #344238;
-  font-family: inherit;
-  font-size: 12px;
-  text-align: left;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.header-account-menu-item:hover {
-  background: #f2f7f3;
-  color: #008b41;
-}
-
-.header-account-signout {
-  color: #c03939;
-}
-
-.header-account-signout:hover {
-  background: #fff1f1;
-  color: #b42323;
-}
-
-.header-account-signout:disabled {
-  cursor: wait;
-  opacity: 0.65;
-}
-
-@media (max-width: 360px) {
-  .header-profile-trigger {
-    width: 33px;
-    height: 33px;
-  }
-
-  .header-profile-image,
-  .header-profile-avatar {
-    width: 31px;
-    height: 31px;
-  }
-
-  .header-account {
-    gap: 2px;
+  .header-account-toggle {
+    width: 24px;
+    flex-basis: 24px;
   }
 }
 
@@ -5923,7 +5644,7 @@ body {
 }
 
 .price-rise-section .price-direction-indicator.rise {
-  color: #8B0000;
+  color: #E53935;
 }
 
 .price-rise-section .product-grid {
@@ -6981,5 +6702,208 @@ main > .all-products-list-section {
 @media (max-width: 760px) {
   .site-header.figma-header > .site-container.header-container.header-main {
     width: calc(100% - 28px) !important;
+  }
+}
+
+
+/* Force vivid price movement indicator colors */
+.price-direction-indicator.rise,
+span.price-direction-indicator.rise {
+  color: #E53935 !important;
+  opacity: 1 !important;
+  font-weight: 900 !important;
+}
+
+.price-direction-indicator.fall,
+span.price-direction-indicator.fall {
+  color: #2EAD4A !important;
+  opacity: 1 !important;
+  font-weight: 900 !important;
+}
+
+
+/* Final price indicator colors */
+span.price-direction-indicator.rise {
+  color: #E53935 !important;
+  opacity: 1 !important;
+  font-weight: 900 !important;
+}
+
+span.price-direction-indicator.fall {
+  color: #2EAD4A !important;
+  opacity: 1 !important;
+  font-weight: 900 !important;
+}
+
+/* Active category: green CTA styling, unchanged text and emoji size */
+.figma-header .header-category-link.header-category-link-active {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 29px !important;
+  padding: 0 10px !important;
+  border: 1px solid #087D3D;
+  border-radius: 8px;
+  background: #087D3D !important;
+  color: #FFFFFF !important;
+  font-size: 10px !important;
+  line-height: 15px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 3px 8px rgb(8 125 61 / 14%);
+  text-decoration: none;
+  transform: none !important;
+}
+
+.figma-header .header-category-link.header-category-link-active span {
+  font-size: 10px !important;
+  line-height: 15px !important;
+  transform: none !important;
+}
+
+.figma-header .header-category-link.header-category-link-active::after {
+  display: none !important;
+}
+
+.figma-header .header-category-link.header-category-link-active:hover {
+  background: #066A34 !important;
+  color: #FFFFFF !important;
+  transform: none !important;
+}
+
+
+
+/* Keep active category text and emoji the same size */
+.figma-header .header-category-link,
+.figma-header .header-category-link span,
+.figma-header .header-category-link.header-category-link-active,
+.figma-header .header-category-link.header-category-link-active span {
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+  transform: none;
+}
+
+.figma-header .header-category-link.header-category-link-active {
+  min-height: 29px !important;
+  padding: 6px 12px !important;
+  font-weight: 600 !important;
+}
+
+.figma-header .header-category-link.header-category-link-active:hover {
+  transform: none !important;
+}
+
+/* Keep category navigation aligned with the logo container */
+.site-header.figma-header .header-category-row .header-category-nav.header-container {
+  width: calc(100% - 40px) !important;
+  max-width: 1280px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  .site-header.figma-header .header-category-row .header-category-nav.header-container {
+    width: calc(100% - 28px) !important;
+  }
+}
+
+
+
+/* Soft lemon hover for header account controls */
+.header-actions.header-account a.header-profile-trigger {
+  border-radius: 10px;
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.header-actions.header-account a.header-profile-trigger:hover {
+  background-color: #edf8f0;
+  box-shadow: none;
+}
+
+.header-actions.header-account .header-account-toggle {
+  border-radius: 8px;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.header-actions.header-account .header-account-toggle:hover {
+  background-color: #edf8f0;
+  color: #05893e;
+}
+
+/* Match Foysal's soft-green account hover */
+.header-actions.header-account:hover .header-profile-trigger,
+.header-actions.header-account .header-profile-trigger:hover,
+.header-actions.header-account:hover .header-account-toggle,
+.header-actions.header-account .header-account-toggle:hover {
+  background-color: #edf8f0 !important;
+  box-shadow: none !important;
+  color: #05893e;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+
+
+/* BAZAR DOR NAVBAR READABILITY REFINEMENT */
+.site-header.figma-header .header-main {
+  min-height: 96px !important;
+}
+
+.site-header.figma-header .brand {
+  gap: 10px !important;
+}
+
+.site-header.figma-header .brand-icon {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 11px !important;
+}
+
+.site-header.figma-header .brand-copy {
+  gap: 3px !important;
+}
+
+.site-header.figma-header .brand-name {
+  font-size: 21px !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.35px !important;
+  font-weight: 800 !important;
+}
+
+.site-header.figma-header .brand-date {
+  display: block !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  font-weight: 500 !important;
+  color: #52665a !important;
+}
+
+.site-header.figma-header .top-strip {
+  font-size: 12px !important;
+}
+
+.site-header.figma-header .top-strip-inner {
+  min-height: 36px !important;
+}
+
+@media (max-width: 600px) {
+  .site-header.figma-header .header-main {
+    min-height: 82px !important;
+    gap: 12px !important;
+  }
+
+  .site-header.figma-header .brand-icon {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .site-header.figma-header .brand-name {
+    font-size: 18px !important;
+  }
+
+  .site-header.figma-header .brand-date {
+    font-size: 12px !important;
   }
 }

@@ -8545,7 +8545,7 @@ main > section.hero-section > .hero-inner {
 /* ALL PRODUCTS GRID */
 .all-products-list-section .all-products-grid {
   display: grid !important;
-  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: clamp(10px, 1.4vw, 18px) !important;
   width: 100%;
 }
@@ -8844,3 +8844,40 @@ main svg {
   border: none !important;
 }
 
+
+
+/* FINAL: Match All Products grid to the price-rise/drop sections */
+html body main > section.all-products-list-section .all-products-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: clamp(12px, 1.5vw, 20px) !important;
+  width: 100% !important;
+}
+
+html body main > section.all-products-list-section .all-product-card {
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 1024px) {
+  html body main > section.all-products-list-section .all-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  html body main > section.all-products-list-section .all-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  html body main > section.all-products-list-section .all-products-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+}
